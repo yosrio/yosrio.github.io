@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Lorem Ipsum</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+    <style>
+        body {
+            background-color: #f4f4f4;
+        }
+
+        .left-side {
+            min-height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            border-right: 1px solid #464646;
+        }
+
+        .name {
+            font-family: Arial Bold;
+            font-size: 32px;
+            font-weight: bold;
+            color: #464646;
+        }
+
+        .right-side {
+            margin-left: 41%;
+        }
+
+        .center-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            min-height: 100vh;
+        }
+
+        img.resize {
+          max-width:35%;
+          max-height:35%;
+        }
+
+        ul#social li {
+          display:inline-block;
+        }
+
+        ul.no-bullets {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        @media screen and (max-width: 767px) {
+            .left-side {
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid #464646;
+            }
+
+            .right-side {
+                margin-left: 0%
+            }
+        }
+
+        .fa-custom {
+            color: #464646;
+        }
+
+        .navbar-toggler:focus {
+            border: 0 !important;
+            box-shadow: none !important; 
+        }
+
+        .navbar-toggler {
+             border: 0 !important;
+        }
+
+        ul.float-menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f4f4f4;
+            position: -webkit-sticky; /* Safari */
+            position: sticky;
+            top: 0;
+            border-bottom: 1px solid #464646;
+        }
+
+        li.list-float-menu {
+            float: left;
+        }
+
+        li.list-float-menu a {
+            display: block;
+            color: #464646;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+    </style>
+  </head>
+  <body>
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 left-side">
+                <code style="font-size: 12px;">Last Update: September 2023</code>
+                <div class="center-text">
+                    <div class="text-center">
+                        <div class="d-block">
+                            <img class="resize rounded" src="DSC09641.png" alt="profile picture" >
+                        </div>
+                        <br>
+                        <div class="d-block name">YOS RIO PURAGA</div>
+                        <br>
+                        <div class="d-block">
+                             <ul class="no-bullets" id="social" style="list-style: inside; text-align: center;">
+                                <li>
+                                    <a style="color: inherit; text-decoration: none;" href="https://www.linkedin.com/in/yos-rio/" target="_blank">
+                                        <i class="fa-brands fa-linkedin fa-2x fa-custom" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="color: inherit; text-decoration: none;" href="https://github.com/yosrio" target="_blank">
+                                        <i class="fa-brands fa-github fa-2x fa-custom" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a style="color: inherit; text-decoration: none;" href="https://www.facebook.com/yosrio.id" target="_blank">
+                                        <i class="fa-brands fa-facebook fa-2x fa-custom" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                            </ul> 
+                        </div>
+                        <div class="d-block">
+                            <hr>
+                            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/artist/4eiYHJLlxeKQXAw0UDoXJl?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 right-side content">
+                <ul class="float-menu" id="menu">
+                    <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="about">
+                            About
+                        </a>
+                    </li>
+                    <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="experience">
+                            Experience
+                        </a>
+                    </li>
+                    <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="education">
+                            Education
+                        </a>
+                    </li>
+                    <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="skill">
+                            Skill
+                        </a>
+                    </li>
+                    <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="contact">
+                            Contact
+                        </a>
+                    </li>
+                </ul>
+                <div style="padding:25px">
+                    <div class="content-section" id="about">
+                        <h1>Tentang Saya</h1>
+                        <p style="text-align: justify; ">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Saya Yos Rio, seorang <code>Backend Web Developer</code> yang telah bekerja dalam industri <code>E-commerce</code>. Dengan keahlian dalam pengembangan web, saya telah berkontribusi pada berbagai proyek E-commerce, memahami bagaimana teknologi dapat digunakan untuk memperkuat bisnis dan menciptakan solusi yang efisien. Saya juga sedang dalam proses belajar framework <code>Laravel</code> yang sudah berjalan sekitar 5 bulan, dan juga belajar mengenai <code>Data Analyst</code>.
+                        </p>
+                    </div>
+                    <div class="content-section" id="experience" style="display: none;">
+                        <h1>Pengalaman</h1>
+                        <br>
+                        <p><strong>Icube by Sirclo (2020 - sekarang)</strong></p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;Sebuat perusahaan yang berperan dalam membangun atau melakukan pemeliharaan sebuat website e-commerce. Job desk secara garis besar, sebagai berikut:</p>
+                        <ul>
+                            <li>Membuat sebuah fitur baru yang diperlukan pada pengembangan sebuah website.</li>
+                            <li>Menginvestigasi serta membenahi isu-isu yang terjadi pada website.</li>
+                            <li>Melakukan pemeliharaan pada website.</li>
+                        </ul>
+                    </div>
+                    <div class="content-section" id="education" style="display: none;">
+                        <h1>Edukasi</h1>
+                        <br>
+                        <p><strong>Universitas Sanata Dharma (2016 - 2021)</strong></p>
+                        <ul>
+                            <li>Mengikuti beberapa organisasi/kepanitiaan dalam kampus.</li>
+                            <li>Belajar mengenai data mining.</li>
+                            <li>Melakukan kerja praktek membangun web sederhana surat-menyurat selama 3 bulan.</li>
+                            <li>Menyelesaikan kuliah dengan skripsi mengenai <code>Penerapan hierarchical k-means dalam pengelompokan nilai UASBN SD </code></li>
+                        </ul>
+                    </div>
+                    <div class="content-section" id="skill" style="display: none;">
+                        <h1>Kemampuan</h1>
+                        <ul>
+                            <li>Magento (Backend Developer)</li>
+                            <li>Laravel (Backend Developer)</li>
+                            <li>PHP</li>
+                            <li>Java</li>
+                        </ul>
+                    </div>
+                    <div class="content-section" id="contact" style="display: none;">
+                        <h1>Kontak</h1>
+                        <p style="text-align: justify; ">
+                            &nbsp;&nbsp;&nbsp;&nbsp;Saya bisa dihubungi melalui whatsapp & email, yang tertera dibawah ini:
+                            <ul>
+                                <li>Whatsapp: <a href="https://wa.me/6281337875817" target="_blank" style="text-decoration: none;">081-337-875-817</a></li>
+                                <li>Email: <a href="mailto:yosrio.id@gmail.com" target="_blank" style="text-decoration: none;">yosrio.id@gmail.com</a></li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const menu = document.getElementById('menu');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            menu.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Check if the clicked element is an anchor tag within the menu
+                if (e.target.tagName === 'A') {
+                    const targetId = e.target.getAttribute('data-target');
+
+                    // Hide all content sections
+                    contentSections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    // Show the selected content section
+                    const selectedContent = document.getElementById(`${targetId}`);
+                    if (selectedContent) {
+                        selectedContent.style.display = 'block';
+                    }
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
