@@ -103,13 +103,32 @@
             padding: 14px 16px;
             text-decoration: none;
         }
+
+        .company-toggle {
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+
+        .company-toggle:hover {
+            text-decoration: underline;
+        }
+
+        .portfolio-item {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #007BFF;
+            border-radius: 6px;
+        }
     </style>
   </head>
   <body>
      <div class="container-fluid">
         <div class="row">
             <div class="col-md-5 left-side">
-                <code style="font-size: 12px;">Terakhir Diperbaharui: Januari 2024</code>
+                <code style="font-size: 12px;">Terakhir Diperbaharui: Agustus 2025</code>
                 <div class="center-text">
                     <div class="text-center">
                         <div class="d-block">
@@ -153,6 +172,11 @@
                         </a>
                     </li>
                     <li class="list-float-menu">
+                        <a style="text-decoration: none;" href="#" data-target="portfolio">
+                            Portfolio
+                        </a>
+                    </li>
+                    <li class="list-float-menu">
                         <a style="text-decoration: none;" href="#" data-target="education">
                             Edukasi
                         </a>
@@ -188,9 +212,9 @@
                     <div class="content-section" id="experience" style="display: none;">
                         <h1>Pengalaman</h1>
                         <br>
-                        <p><strong>Icube by Sirclo - Associate Software Engineer (2020 - sekarang)</strong></p>
+                        <p><strong>Icube - Software Engineer (2020 - sekarang)</strong></p>
 						<p style="text-align: justify;">
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;Sebagai Backend Developer di iCube by SIRCLO, saya memiliki pengalaman berharga dalam menghadirkan solusi teknologi dan mendukung operasional e-commerce. Berikut adalah beberapa poin utama yang mencerminkan peran dan tanggung jawab saya:</p>
+							<p>&nbsp;&nbsp;&nbsp;&nbsp;Sebagai Backend Developer di iCube, saya telah berkontribusi dalam mengembangkan dan memelihara berbagai solusi teknologi untuk mendukung kebutuhan operasional dan bisnis e-commerce. Beberapa tanggung jawab utama saya meliputi:</p>
 							<ol>
 								<li>
 									<p><strong>Pengembangan Magento:</strong></p>
@@ -232,12 +256,150 @@
 									</ul>
 								</li>
 							</ol>
-							<p>&nbsp;&nbsp;&nbsp;&nbsp;Pengalaman saya di iCube by SIRCLO tidak hanya memperluas pemahaman saya tentang pengembangan backend e-commerce, tetapi juga mengasah keterampilan kolaboratif dan pemecahan masalah dalam konteks bisnis yang bergerak cepat. Saya memiliki dedikasi tinggi untuk memberikan solusi teknologi yang inovatif dan mendukung pertumbuhan klien kami.</p>
+							<p>&nbsp;&nbsp;&nbsp;&nbsp;Pengalaman saya di iCube tidak hanya memperluas pemahaman saya tentang pengembangan backend e-commerce, tetapi juga mengasah keterampilan kolaboratif dan pemecahan masalah dalam konteks bisnis yang bergerak cepat. Saya memiliki dedikasi tinggi untuk memberikan solusi teknologi yang inovatif dan mendukung pertumbuhan klien kami.</p>
 						</p>
 					</div>
-                    <div class="content-section" id="experience" style="display: none;">
+                    <div class="content-section" id="portfolio" style="display: none;">
                         <h1>Portfolio</h1>
-					</div>
+                        <br>
+                        <div class="company-toggle" onclick="togglePortfolio('icube-projects')">
+                            <strong>▶ Icube Company</strong>
+                        </div>
+                        <div id="icube-projects" style="display: none; margin-left: 20px;">
+                            <div class="portfolio-item">
+                                <h2>Lottemart Apps</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Mengimplementasikan push notifications dari backend ke frontend</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Kiehberg (India & German)</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Instalasi & konfigurasi module-module yang dibutuhkan</li>
+                                    <li>Melakukan integrasi data dari Magento 1 (web sebelumnya) ke Magento 2 (web baru)</li>
+                                    <li>Mengimplementasikan fitur track order</li>
+                                    <li>Melakukan kustomisasi pada PDP (Product Detail Page) untuk menerapkan beberapa kondisi yang dibutuhkan</li>
+                                    <li>Melakukan kustomisasi pada PDP (Product Detail Page) untuk menampilkan tier pricing table</li>
+                                    <li>Melakukan kustomisasi pada sales order backoffice, untuk menampilkan custom field</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Focus Nusantara</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Membuat fitur graphql affiliate, free item promo product, dll</li>
+                                    <li>Mengimplementasi fitur workshop/event di backoffice</li>
+                                    <li>Membuat beberapa custom email template</li>
+                                    <li>Investigasi & perbaikan checkout error saat harga 0</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>CSA</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Membuat validasi product dengan harga 0 tidak boleh masuk cart</li>
+                                    <li>Implementasi PDP/PLP untuk kalkulasi harga dan ongkir advance rate</li>
+                                    <li>Membuat graphql quotation, credit limit, dll</li>
+                                    <li>Investigasi & perbaikan xendit payment gateway module</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Indesso/Isensso</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Migrasi data dari web sebelumnya ke web baru</li>
+                                    <li>Kustomisasi blog page</li>
+                                    <li>Membuat report dalam bentuk pdf</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Loreal WaCommerce</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2, WhatsappBusiness </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Membantu import data-data ke Magento</li>
+                                    <li>Setup akun whatsapp business untuk development</li>
+                                    <li>Integrasi data product ke FBM (Facebook Business Manager)</li>
+                                    <li>Membuat rest api yang dibutuhkan 3rd party untuk sinkronisasi product, stock, dll ke whatsapp</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Planet Gadget</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2 </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Memperbarui fitur-fitur yang sudah ada</li>
+                                    <li>Membuat rest api berbagai fitur yang dibutuhkan</li>
+                                    <li>Memperbaiki issue flash sale module</li>
+                                    <li>Membuat modul untuk integrasi ERP dan Magento</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Channel Service</h2>
+                                <p><strong>Tech Stack:</strong> n8n </p>
+                                <p><strong>Type:</strong> Internal Project </p>
+                                <ul>
+                                    <li>Membuat struktur database</li>
+                                    <li>Membuat middleware untuk integrasi antar plaftorm (product, stock, order, dll)</li>
+                                    <li>Menerapkan sistem queue untuk menghindari respon yang lama</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Shipping Service Shopify App</h2>
+                                <p><strong>Tech Stack:</strong> Shopify, Laravel, ReactJS </p>
+                                <p><strong>Type:</strong> Internal Project </p>
+                                <ul>
+                                    <li>Membuat struktur database</li>
+                                    <li>Membuat tampilan dashboard, konfigurasi, dll yang di embed ke shopify admin sebagai custom apps</li>
+                                    <li>Membuat CRUD untuk mengelola data</li>
+                                    <li>Menambahkan custom shipping ke halaman checkout</li>
+                                    <li>Membuat logic pengambilan shipping method</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Catfootwear</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2, Shopify, Javascript, Laravel, n8n </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Integrasi product, stock dari Magento ke Shopify menggunakan n8n</li>
+                                    <li>Kustomisasi integrasi order terkirim ke Magento</li>
+                                    <li>Kustomisasi agar checkout dialihkan ke custom checkout icube</li>
+                                    <li>Memperbaiki issue integrasi memakan waktu yang lama</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Lesportac</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2, Shopify, Javascript, Laravel, n8n </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Integrasi product, stock dari Magento ke Shopify menggunakan n8n</li>
+                                    <li>Kustomisasi integrasi order terkirim ke Magento</li>
+                                    <li>Kustomisasi agar checkout dialihkan ke custom checkout icube</li>
+                                </ul>
+                            </div>
+                            <div class="portfolio-item">
+                                <h2>Nivea WaCommerce</h2>
+                                <p><strong>Tech Stack:</strong> PHP, Magento 2, WhatsappBusiness, Laravel </p>
+                                <p><strong>Type:</strong> External Project </p>
+                                <ul>
+                                    <li>Membantu import data-data ke Magento</li>
+                                    <li>Setup akun whatsapp business untuk development</li>
+                                    <li>Integrasi data product ke FBM (Facebook Business Manager)</li>
+                                    <li>Membuat rest api yang dibutuhkan untuk sinkronisasi product, stock, dll ke whatsapp</li>
+                                    <li>Membuat middleware laravel untuk integrasi dari magento ke whatsapp</li>
+                                    <li>Menerapkan sistem custom checkout icube</li>
+                                    <li>Konfigurasi n8n sebagai middleware integrasi order</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <div class="content-section" id="education" style="display: none;">
                         <h1>Edukasi</h1>
                         <br>
@@ -327,6 +489,15 @@
                 }
             });
         });
+
+        function togglePortfolio(id) {
+            var section = document.getElementById(id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+            } else {
+                section.style.display = "none";
+            }
+        }
     </script>
   </body>
 </html>
