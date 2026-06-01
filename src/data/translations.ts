@@ -99,7 +99,7 @@ export const translations: Record<Locale, Trans> = {
     contact: {
       label: '05 — Contact',
       heading: "Let's talk.",
-      body: "Whether it's a backend engineering role, a freelance project, or just a question — I read every message and respond within a day or two.",
+      body: "Whether it's a backend engineering role, a freelance project, or just a question — I read every message and try to respond as soon as possible.",
       built: 'Built with Vue 3 + Tailwind CSS.',
       labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
       form: {
@@ -164,7 +164,7 @@ export const translations: Record<Locale, Trans> = {
     contact: {
       label: '05 — Kontak',
       heading: 'Mari terhubung.',
-      body: 'Baik itu peluang kerja, proyek freelance, maupun sekadar pertanyaan — saya membaca setiap pesan dan biasanya merespons dalam satu-dua hari.',
+      body: 'Baik itu peluang kerja, proyek freelance, maupun sekadar pertanyaan — saya membaca setiap pesan dan berusaha merespons secepatnya.',
       built: 'Dibangun dengan Vue 3 + Tailwind CSS.',
       labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
       form: {
