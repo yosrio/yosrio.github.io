@@ -306,6 +306,7 @@
       btn.textContent = 'Generating…'
       btn.disabled = true
       const el = document.querySelector('.cv-wrapper')
+      el.style.minHeight = 'auto'
       await html2pdf().set({
         margin: 0,
         filename: 'Yos-Rio-Puraga-CV-Creative.pdf',
@@ -313,6 +314,7 @@
         html2canvas: { scale: 2, useCORS: true, logging: false },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       }).from(el).save()
+      el.style.minHeight = ''
       btn.textContent = 'Download PDF'
       btn.disabled = false
     }
