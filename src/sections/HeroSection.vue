@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { ArrowDown, FileText, ChevronDown } from '@lucide/vue'
 import { personal } from '@/data/personal'
 import { useLocale } from '@/composables/useLocale'
