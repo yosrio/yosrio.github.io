@@ -144,7 +144,7 @@
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-id" onclick="setLang('id')">ID</button>
     </div>
-    <button class="dl-btn" onclick="savePDF()">Save as PDF</button>
+    <button class="dl-btn" onclick="savePDF()">Download PDF</button>
   </div>
 
   <div class="cv-wrapper">
@@ -344,10 +344,12 @@
 
       const el = document.querySelector('.cv-wrapper')
       const sidebar = document.querySelector('.sidebar')
-      // Force exact A4 dimensions so the page is full
+      // Force exact A4 size and clip overflow so html2pdf renders exactly 1 page
       el.style.height = '297mm'
       el.style.minHeight = '297mm'
+      el.style.overflow = 'hidden'
       sidebar.style.minHeight = '297mm'
+      sidebar.style.overflow = 'hidden'
 
       await html2pdf().set({
         margin: 0,
@@ -360,7 +362,9 @@
       // Restore
       el.style.height = ''
       el.style.minHeight = ''
+      el.style.overflow = ''
       sidebar.style.minHeight = ''
+      sidebar.style.overflow = ''
       btn.textContent = 'Download PDF'
       btn.disabled = false
     }
