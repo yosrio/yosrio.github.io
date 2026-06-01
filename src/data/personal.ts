@@ -9,8 +9,8 @@ export const personal = {
     "I've recently moved into fullstack engineering at PT Vita Shopindo, where I work with Laravel, Golang, Vue, and Nuxt — building end-to-end features and getting closer to the full product lifecycle. Currently working on-site in West Jakarta.",
   ],
   bio_id: [
-    "Selama lima tahun di iCube, saya membangun backend e-commerce — mengembangkan modul Magento 2 kustom, menghubungkan platform melalui middleware, dan mengintegrasikan layanan seperti WhatsApp Commerce dan workflow otomasi n8n. Sebagian besar pekerjaan itu berbasis PHP, namun memberi saya pemahaman mendalam tentang bagaimana sistem multi-platform yang kompleks dapat berjalan dengan baik di lingkungan produksi.",
-    "Kini saya beralih ke fullstack engineering di PT Vita Shopindo, menggunakan Laravel, Golang, Vue, dan Nuxt — membangun fitur end-to-end dan lebih dekat dengan siklus produk secara keseluruhan. Saat ini bekerja secara WFO di Jakarta Barat.",
+    "Lima tahun di iCube saya habiskan untuk ngurusin backend e-commerce — bikin modul Magento 2 kustom, nyambungin platform yang sebenernya gak didesain buat nyambung, sampai integrasi WhatsApp Commerce dan n8n. Mostly PHP, tapi dari situ saya ngerti betul gimana sistem multi-platform yang kompleks bisa jalan stabil di production.",
+    "Sekarang saya lagi transisi ke fullstack di PT Vita Shopindo — pakai Laravel, Golang, Vue, dan Nuxt. Lebih deket ke keseluruhan product cycle-nya. WFO di Jakarta Barat.",
   ],
   email: 'yosrio.id@gmail.com',
   whatsapp: 'https://wa.me/6281337875817',
