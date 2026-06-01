@@ -10,9 +10,19 @@ import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 
 const base = import.meta.env.BASE_URL
 const cvOpen = ref(false)
+const cvRef = ref<HTMLElement | null>(null)
 
 function toggleCv() { cvOpen.value = !cvOpen.value }
 function closeCv() { cvOpen.value = false }
+
+function onOutsideClick(e: MouseEvent) {
+  if (cvRef.value && !cvRef.value.contains(e.target as Node)) {
+    cvOpen.value = false
+  }
+}
+
+onMounted(() => document.addEventListener('click', onOutsideClick, true))
+onUnmounted(() => document.removeEventListener('click', onOutsideClick, true))
 
 const { locale } = useLocale()
 const t = computed(() => translations[locale.value])
@@ -53,7 +63,7 @@ function scrollToProjects() {
                 <IconLinkedin :size="16" /> LinkedIn
               </a>
               <!-- CV dropdown -->
-              <div class="cv-dropdown" @mouseleave="closeCv">
+              <div class="cv-dropdown" ref="cvRef">
                 <button class="btn-ghost" aria-haspopup="true" :aria-expanded="cvOpen" @click="toggleCv">
                   <FileText :size="16" /> CV <ChevronDown :size="13" />
                 </button>
