@@ -342,24 +342,36 @@
       btn.textContent = 'Generating…'
       btn.disabled = true
 
+      const controls = document.querySelector('.controls')
       const el = document.querySelector('.cv-wrapper')
       const sidebar = document.querySelector('.sidebar')
-      // Force exact A4 size and clip overflow so html2pdf renders exactly 1 page
+
+      // Hide controls bar so it doesn't affect canvas
+      controls.style.visibility = 'hidden'
+
+      // Reset screen-only styles that cause offset/blank space
+      el.style.margin = '0'
+      el.style.boxShadow = 'none'
       el.style.height = '297mm'
       el.style.minHeight = '297mm'
       el.style.overflow = 'hidden'
       sidebar.style.minHeight = '297mm'
       sidebar.style.overflow = 'hidden'
 
+      window.scrollTo(0, 0)
+
       await html2pdf().set({
         margin: 0,
         filename: lang === 'id' ? 'Yos-Rio-Puraga-CV-Creative-ID.pdf' : 'Yos-Rio-Puraga-CV-Creative.pdf',
         image: { type: 'jpeg', quality: 0.99 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
+        html2canvas: { scale: 2, useCORS: true, logging: false, scrollX: 0, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       }).from(el).save()
 
       // Restore
+      controls.style.visibility = ''
+      el.style.margin = ''
+      el.style.boxShadow = ''
       el.style.height = ''
       el.style.minHeight = ''
       el.style.overflow = ''
