@@ -1,26 +1,29 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { GraduationCap, Briefcase, MapPin } from '@lucide/vue'
 import { personal } from '@/data/personal'
 import { useReveal } from '@/composables/useReveal'
+import { useLocale } from '@/composables/useLocale'
+import { translations } from '@/data/translations'
 
 const { el, visible } = useReveal()
+const { locale } = useLocale()
+const t = computed(() => translations[locale.value])
+const bio = computed(() => locale.value === 'id' ? personal.bio_id : personal.bio)
+const degree = computed(() => locale.value === 'id' ? personal.education.degree_id : personal.education.degree)
 </script>
 
 <template>
   <section id="about" class="section" aria-labelledby="about-heading">
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
-        <p class="section-label">01 — About</p>
+        <p class="section-label">{{ t.about.label }}</p>
 
         <div class="about-grid">
           <div class="about-text">
-            <h2 id="about-heading" class="about-heading">
-              A backend engineer who<br class="hidden sm:block" />
-              cares about the whole system.
-            </h2>
-
+            <h2 id="about-heading" class="about-heading">{{ t.about.heading }}</h2>
             <div class="about-body">
-              <p v-for="(paragraph, i) in personal.bio" :key="i">{{ paragraph }}</p>
+              <p v-for="(paragraph, i) in bio" :key="i">{{ paragraph }}</p>
             </div>
           </div>
 
@@ -29,7 +32,7 @@ const { el, visible } = useReveal()
               <div class="fact-item">
                 <Briefcase :size="15" class="fact-icon" aria-hidden="true" />
                 <div>
-                  <p class="fact-label">Current Role</p>
+                  <p class="fact-label">{{ t.about.fact_role }}</p>
                   <p class="fact-value">Fullstack Engineer at PT Vita Shopindo</p>
                 </div>
               </div>
@@ -37,7 +40,7 @@ const { el, visible } = useReveal()
               <div class="fact-item">
                 <MapPin :size="15" class="fact-icon" aria-hidden="true" />
                 <div>
-                  <p class="fact-label">Location</p>
+                  <p class="fact-label">{{ t.about.fact_location }}</p>
                   <p class="fact-value">{{ personal.location }}</p>
                 </div>
               </div>
@@ -45,15 +48,15 @@ const { el, visible } = useReveal()
               <div class="fact-item">
                 <GraduationCap :size="15" class="fact-icon" aria-hidden="true" />
                 <div>
-                  <p class="fact-label">Education</p>
+                  <p class="fact-label">{{ t.about.fact_education }}</p>
                   <p class="fact-value">{{ personal.education.school }}</p>
-                  <p class="fact-sub">{{ personal.education.degree }}, {{ personal.education.years }}</p>
+                  <p class="fact-sub">{{ degree }}, {{ personal.education.years }}</p>
                 </div>
               </div>
             </div>
 
             <div class="thesis-card">
-              <p class="thesis-label">Thesis</p>
+              <p class="thesis-label">{{ t.about.thesis }}</p>
               <p class="thesis-text">"{{ personal.education.thesis }}"</p>
             </div>
           </aside>
@@ -72,11 +75,7 @@ const { el, visible } = useReveal()
 }
 
 @media (min-width: 768px) {
-  .about-grid {
-    grid-template-columns: 1fr 280px;
-    gap: 4rem;
-    align-items: start;
-  }
+  .about-grid { grid-template-columns: 1fr 280px; gap: 4rem; align-items: start; }
 }
 
 .about-heading {
@@ -88,24 +87,10 @@ const { el, visible } = useReveal()
   margin-bottom: 1.5rem;
 }
 
-.about-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.about-body { display: flex; flex-direction: column; gap: 1rem; }
+.about-body p { font-size: 0.9375rem; line-height: 1.75; color: var(--text-2); }
 
-.about-body p {
-  font-size: 0.9375rem;
-  line-height: 1.75;
-  color: var(--text-2);
-}
-
-/* Sidebar */
-.about-sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
 
 .fact-card {
   background-color: var(--bg-surface);
@@ -117,17 +102,8 @@ const { el, visible } = useReveal()
   gap: 1rem;
 }
 
-.fact-item {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-}
-
-.fact-icon {
-  color: var(--accent);
-  margin-top: 1px;
-  flex-shrink: 0;
-}
+.fact-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+.fact-icon { color: var(--accent); margin-top: 1px; flex-shrink: 0; }
 
 .fact-label {
   font-size: 0.6875rem;
@@ -138,17 +114,8 @@ const { el, visible } = useReveal()
   margin-bottom: 0.1rem;
 }
 
-.fact-value {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-1);
-}
-
-.fact-sub {
-  font-size: 0.8125rem;
-  color: var(--text-3);
-  margin-top: 0.1rem;
-}
+.fact-value { font-size: 0.875rem; font-weight: 500; color: var(--text-1); }
+.fact-sub { font-size: 0.8125rem; color: var(--text-3); margin-top: 0.1rem; }
 
 .thesis-card {
   background-color: var(--bg-raised);
@@ -166,10 +133,5 @@ const { el, visible } = useReveal()
   margin-bottom: 0.4rem;
 }
 
-.thesis-text {
-  font-size: 0.8125rem;
-  font-style: italic;
-  line-height: 1.55;
-  color: var(--text-2);
-}
+.thesis-text { font-size: 0.8125rem; font-style: italic; line-height: 1.55; color: var(--text-2); }
 </style>

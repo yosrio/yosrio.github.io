@@ -2,9 +2,9 @@ export interface Project {
   id: string
   name: string
   highlights: string[]
+  highlights_id: string[]
   tech: string[]
   type: 'external' | 'internal'
-  github?: string
 }
 
 export interface ProjectGroup {
@@ -21,7 +21,7 @@ export const projectGroups: ProjectGroup[] = [
   },
   {
     company: 'iCube',
-    period: 'Jan 2020 – May 2026',
+    period: 'Aug 2020 – May 2026',
     projects: [
       {
         id: 'nivea',
@@ -35,6 +35,15 @@ export const projectGroups: ProjectGroup[] = [
           'Implemented iCube custom checkout flow',
           'Configured n8n as order integration middleware',
         ],
+        highlights_id: [
+          'Membantu import data ke Magento',
+          'Setup akun WhatsApp Business untuk pengembangan',
+          'Integrasi katalog produk ke Facebook Business Manager (FBM)',
+          'Membuat REST API untuk sinkronisasi produk, stok, dan pesanan ke WhatsApp',
+          'Membuat middleware Laravel untuk integrasi Magento ke WhatsApp',
+          'Menerapkan sistem custom checkout iCube',
+          'Konfigurasi n8n sebagai middleware integrasi pesanan',
+        ],
         tech: ['PHP', 'Magento 2', 'WhatsApp Business API', 'Laravel', 'n8n', 'REST API'],
         type: 'external',
       },
@@ -46,6 +55,12 @@ export const projectGroups: ProjectGroup[] = [
           'Set up WhatsApp Business account for development',
           'Integrated product catalogue with Facebook Business Manager (FBM)',
           'Built REST APIs for third-party product, stock, and order sync to WhatsApp',
+        ],
+        highlights_id: [
+          'Membantu import data ke Magento',
+          'Setup akun WhatsApp Business untuk pengembangan',
+          'Integrasi data produk ke Facebook Business Manager (FBM)',
+          'Membuat REST API untuk sinkronisasi produk, stok, dan pesanan ke WhatsApp',
         ],
         tech: ['PHP', 'Magento 2', 'WhatsApp Business API', 'REST API'],
         type: 'external',
@@ -60,6 +75,13 @@ export const projectGroups: ProjectGroup[] = [
           'Added custom shipping methods to the Shopify checkout flow',
           'Built shipping method selection logic',
         ],
+        highlights_id: [
+          'Membuat struktur database',
+          'Membuat dashboard dan panel konfigurasi yang di-embed ke Shopify Admin sebagai custom app',
+          'Membuat CRUD untuk mengelola data pengiriman',
+          'Menambahkan metode pengiriman kustom ke halaman checkout Shopify',
+          'Membuat logika pengambilan metode pengiriman',
+        ],
         tech: ['Shopify', 'Laravel', 'ReactJS', 'MySQL'],
         type: 'internal',
       },
@@ -70,6 +92,11 @@ export const projectGroups: ProjectGroup[] = [
           'Designed the database architecture',
           'Built middleware for cross-platform integration (products, stock, orders)',
           'Implemented a queue system to handle long-running sync operations',
+        ],
+        highlights_id: [
+          'Membuat struktur database',
+          'Membuat middleware untuk integrasi antar platform (produk, stok, pesanan)',
+          'Menerapkan sistem antrian untuk menghindari respons yang lama',
         ],
         tech: ['n8n', 'MySQL'],
         type: 'internal',
@@ -83,6 +110,12 @@ export const projectGroups: ProjectGroup[] = [
           'Redirected checkout to iCube custom checkout',
           'Fixed slow integration performance issues',
         ],
+        highlights_id: [
+          'Integrasi produk dan stok dari Magento ke Shopify menggunakan n8n',
+          'Kustomisasi integrasi pesanan ke Magento',
+          'Mengalihkan checkout ke custom checkout iCube',
+          'Memperbaiki masalah performa integrasi yang lambat',
+        ],
         tech: ['PHP', 'Magento 2', 'Shopify', 'JavaScript', 'Laravel', 'n8n'],
         type: 'external',
       },
@@ -93,6 +126,11 @@ export const projectGroups: ProjectGroup[] = [
           'Integrated product and stock data from Magento to Shopify via n8n',
           'Customised order sync back to Magento',
           'Redirected checkout to iCube custom checkout',
+        ],
+        highlights_id: [
+          'Integrasi produk dan stok dari Magento ke Shopify menggunakan n8n',
+          'Kustomisasi integrasi pesanan ke Magento',
+          'Mengalihkan checkout ke custom checkout iCube',
         ],
         tech: ['PHP', 'Magento 2', 'Shopify', 'JavaScript', 'Laravel', 'n8n'],
         type: 'external',
@@ -106,6 +144,12 @@ export const projectGroups: ProjectGroup[] = [
           'Fixed flash sale module issues',
           'Developed ERP–Magento integration module',
         ],
+        highlights_id: [
+          'Memperbarui dan memelihara fitur-fitur yang sudah ada',
+          'Membuat REST API untuk berbagai fitur yang dibutuhkan',
+          'Memperbaiki masalah pada modul flash sale',
+          'Membuat modul integrasi ERP dan Magento',
+        ],
         tech: ['PHP', 'Magento 2', 'REST API'],
         type: 'external',
       },
@@ -118,6 +162,12 @@ export const projectGroups: ProjectGroup[] = [
           'Built GraphQL endpoints for quotation, credit limit, and related features',
           'Investigated and fixed Xendit payment gateway module issues',
         ],
+        highlights_id: [
+          'Membuat validasi agar produk dengan harga 0 tidak bisa masuk keranjang',
+          'Implementasi kalkulasi harga dan ongkir advance rate di PDP/PLP',
+          'Membuat endpoint GraphQL untuk quotation, credit limit, dan fitur terkait',
+          'Investigasi dan perbaikan masalah pada modul payment gateway Xendit',
+        ],
         tech: ['PHP', 'Magento 2', 'GraphQL'],
         type: 'external',
       },
@@ -129,6 +179,12 @@ export const projectGroups: ProjectGroup[] = [
           'Implemented workshop/event management in the backoffice',
           'Created custom email templates',
           'Investigated and fixed checkout error when product price is 0',
+        ],
+        highlights_id: [
+          'Membuat fitur GraphQL afiliasi, promo item gratis, dan fitur terkait',
+          'Mengimplementasi fitur workshop/event di backoffice',
+          'Membuat beberapa custom email template',
+          'Investigasi dan perbaikan error checkout saat harga produk 0',
         ],
         tech: ['PHP', 'Magento 2', 'GraphQL'],
         type: 'external',
@@ -143,6 +199,13 @@ export const projectGroups: ProjectGroup[] = [
           'Customised PDP to display tier pricing table and handle conditional logic',
           'Customised sales order backoffice to display custom fields',
         ],
+        highlights_id: [
+          'Instalasi dan konfigurasi modul-modul yang dibutuhkan',
+          'Migrasi data dari Magento 1 ke Magento 2',
+          'Mengimplementasikan fitur pelacakan pesanan',
+          'Kustomisasi PDP untuk menampilkan tabel tier pricing dan menangani logika kondisional',
+          'Kustomisasi backoffice sales order untuk menampilkan custom field',
+        ],
         tech: ['PHP', 'Magento 2'],
         type: 'external',
       },
@@ -154,6 +217,11 @@ export const projectGroups: ProjectGroup[] = [
           'Customised the blog page',
           'Built PDF report generation feature',
         ],
+        highlights_id: [
+          'Migrasi data dari web sebelumnya ke platform baru',
+          'Kustomisasi halaman blog',
+          'Membuat fitur pembuatan laporan dalam format PDF',
+        ],
         tech: ['PHP', 'Magento 2'],
         type: 'external',
       },
@@ -162,6 +230,9 @@ export const projectGroups: ProjectGroup[] = [
         name: 'Lottemart Apps',
         highlights: [
           'Implemented push notifications from backend to frontend',
+        ],
+        highlights_id: [
+          'Mengimplementasikan push notification dari backend ke frontend',
         ],
         tech: ['PHP', 'Magento 2'],
         type: 'external',
@@ -172,6 +243,9 @@ export const projectGroups: ProjectGroup[] = [
         highlights: [
           'Assisted with middleware installation for product, order, and stock sync',
         ],
+        highlights_id: [
+          'Membantu instalasi middleware untuk sinkronisasi produk, pesanan, dan stok',
+        ],
         tech: ['PHP', 'Magento 2', 'Shopify', 'Laravel'],
         type: 'external',
       },
@@ -180,6 +254,9 @@ export const projectGroups: ProjectGroup[] = [
         name: 'Melawai',
         highlights: [
           'Migrated POS/RMS features from the legacy system to the new platform',
+        ],
+        highlights_id: [
+          'Mengerjakan fitur-fitur POS/RMS dari sistem lama ke sistem baru',
         ],
         tech: ['PHP', 'Magento 2'],
         type: 'external',

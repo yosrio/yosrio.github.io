@@ -1,28 +1,35 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { experience } from '@/data/experience'
 import { useReveal } from '@/composables/useReveal'
+import { useLocale } from '@/composables/useLocale'
+import { translations } from '@/data/translations'
 
 const { el, visible } = useReveal()
+const { locale } = useLocale()
+const t = computed(() => translations[locale.value])
+
+function desc(job: typeof experience[0]) {
+  return locale.value === 'id' && job.description_id ? job.description_id : job.description
+}
+
+function highlights(job: typeof experience[0]) {
+  return locale.value === 'id' && job.highlights_id?.length ? job.highlights_id : job.highlights
+}
 </script>
 
 <template>
   <section id="experience" class="section" aria-labelledby="experience-heading">
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
-        <p class="section-label">03 — Experience</p>
-        <h2 id="experience-heading" class="exp-heading">Where I've worked.</h2>
+        <p class="section-label">{{ t.experience.label }}</p>
+        <h2 id="experience-heading" class="exp-heading">{{ t.experience.heading }}</h2>
 
         <div class="timeline">
-          <article
-            v-for="(job, index) in experience"
-            :key="index"
-            class="timeline-item"
-          >
-            <!-- Timeline dot -->
+          <article v-for="(job, index) in experience" :key="index" class="timeline-item">
             <div class="timeline-dot" :class="{ 'timeline-dot--active': job.current }" aria-hidden="true" />
 
             <div class="timeline-body">
-              <!-- Header -->
               <header class="job-header">
                 <div>
                   <h3 class="job-role">{{ job.role }}</h3>
@@ -35,22 +42,18 @@ const { el, visible } = useReveal()
                 <time class="job-period">{{ job.period }}</time>
               </header>
 
-              <!-- New / empty role -->
-              <template v-if="job.highlights.length === 0">
-                <p class="job-new">Just getting started — details coming soon.</p>
+              <template v-if="highlights(job).length === 0">
+                <p class="job-new">{{ t.experience.new_role }}</p>
               </template>
 
-              <!-- Populated role -->
               <template v-else>
-                <p v-if="job.description" class="job-desc">{{ job.description }}</p>
-
+                <p v-if="desc(job)" class="job-desc">{{ desc(job) }}</p>
                 <ul class="highlights" aria-label="Key achievements">
-                  <li v-for="(item, i) in job.highlights" :key="i" class="highlight-item">
+                  <li v-for="(item, i) in highlights(job)" :key="i" class="highlight-item">
                     <span class="highlight-bullet" aria-hidden="true">—</span>
                     <span>{{ item }}</span>
                   </li>
                 </ul>
-
                 <div v-if="job.tech.length > 0" class="job-tech" aria-label="Technologies used">
                   <span v-for="t in job.tech" :key="t" class="tag">{{ t }}</span>
                 </div>
@@ -73,12 +76,7 @@ const { el, visible } = useReveal()
   margin-top: 0.375rem;
 }
 
-/* Timeline */
-.timeline {
-  position: relative;
-  padding-left: 1.75rem;
-}
-
+.timeline { position: relative; padding-left: 1.75rem; }
 .timeline::before {
   content: '';
   position: absolute;
@@ -89,14 +87,8 @@ const { el, visible } = useReveal()
   background-color: var(--border);
 }
 
-.timeline-item {
-  position: relative;
-  margin-bottom: 2.5rem;
-}
-
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
+.timeline-item { position: relative; margin-bottom: 2.5rem; }
+.timeline-item:last-child { margin-bottom: 0; }
 
 .timeline-dot {
   position: absolute;
@@ -121,7 +113,6 @@ const { el, visible } = useReveal()
   padding: 1.5rem;
 }
 
-/* Job header */
 .job-header {
   display: flex;
   flex-direction: column;
@@ -130,40 +121,15 @@ const { el, visible } = useReveal()
 }
 
 @media (min-width: 480px) {
-  .job-header {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
+  .job-header { flex-direction: row; justify-content: space-between; align-items: flex-start; }
 }
 
-.job-role {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-1);
-  margin-bottom: 0.2rem;
-}
+.job-role { font-size: 1rem; font-weight: 600; color: var(--text-1); margin-bottom: 0.2rem; }
 
-.job-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.375rem;
-  font-size: 0.8125rem;
-}
-
-.job-company {
-  font-weight: 600;
-  color: var(--accent);
-}
-
-.job-sep {
-  color: var(--text-3);
-}
-
-.job-location {
-  color: var(--text-3);
-}
+.job-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; font-size: 0.8125rem; }
+.job-company { font-weight: 600; color: var(--accent); }
+.job-sep { color: var(--text-3); }
+.job-location { color: var(--text-3); }
 
 .job-period {
   font-size: 0.75rem;
@@ -175,14 +141,8 @@ const { el, visible } = useReveal()
   margin-top: 2px;
 }
 
-/* New role placeholder */
-.job-new {
-  font-size: 0.875rem;
-  font-style: italic;
-  color: var(--text-3);
-}
+.job-new { font-size: 0.875rem; font-style: italic; color: var(--text-3); }
 
-/* Description */
 .job-desc {
   font-size: 0.875rem;
   line-height: 1.65;
@@ -192,35 +152,10 @@ const { el, visible } = useReveal()
   border-bottom: 1px solid var(--border-faint);
 }
 
-/* Highlights */
-.highlights {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+.highlights { list-style: none; padding: 0; margin: 0 0 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
 
-.highlight-item {
-  display: flex;
-  gap: 0.625rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
-  color: var(--text-2);
-}
+.highlight-item { display: flex; gap: 0.625rem; font-size: 0.875rem; line-height: 1.6; color: var(--text-2); }
+.highlight-bullet { color: var(--accent); font-weight: 600; flex-shrink: 0; margin-top: 1px; }
 
-.highlight-bullet {
-  color: var(--accent);
-  font-weight: 600;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-/* Tech */
-.job-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.375rem;
-}
+.job-tech { display: flex; flex-wrap: wrap; gap: 0.375rem; }
 </style>

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:yosrio.github.io)",
+      "WebFetch(domain:github.com)",
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)",
+      "Bash(npm run *)",
+      "Bash(node *)",
+      "Bash(npx vue-tsc *)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(git init *)",
+      "Bash(git remote *)"
+    ]
+  }
+}

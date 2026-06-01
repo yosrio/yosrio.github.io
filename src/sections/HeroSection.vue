@@ -1,9 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { ArrowDown } from '@lucide/vue'
 import { personal } from '@/data/personal'
+import { useLocale } from '@/composables/useLocale'
+import { translations } from '@/data/translations'
 import IconGithub from '@/components/icons/IconGithub.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 
+const { locale } = useLocale()
+const t = computed(() => translations[locale.value])
+const bio = computed(() => locale.value === 'id' ? personal.bio_id : personal.bio)
 const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
 
 function scrollToProjects() {
@@ -12,55 +18,32 @@ function scrollToProjects() {
 </script>
 
 <template>
-  <section
-    id="home"
-    class="min-h-screen flex flex-col justify-center pt-16"
-    aria-label="Introduction"
-  >
+  <section id="home" class="min-h-screen flex flex-col justify-center pt-16" aria-label="Introduction">
     <div class="section-inner">
       <div class="hero-grid">
         <!-- Text content -->
         <div class="hero-content">
           <p class="hero-eyebrow">
             <span class="inline-block w-8 h-px align-middle mr-2" style="background-color: var(--accent)" />
-            Based in {{ personal.location }}
+            {{ t.hero.eyebrow }}
           </p>
 
           <h1 class="hero-name">{{ personal.name }}</h1>
-
           <p class="hero-title">{{ personal.title }}</p>
-
-          <p class="hero-tagline">{{ personal.tagline }}</p>
-
-          <p class="hero-bio">
-            {{ personal.bio[0] }}
-          </p>
+          <p class="hero-tagline">{{ t.hero.tagline }}</p>
+          <p class="hero-bio">{{ bio[0] }}</p>
 
           <!-- CTAs -->
           <div class="hero-ctas">
             <a href="#projects" class="btn-primary" @click.prevent="scrollToProjects">
-              View Projects
+              {{ t.hero.cta_projects }}
             </a>
             <div class="flex gap-3">
-              <a
-                :href="personal.github"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-ghost"
-                aria-label="GitHub profile"
-              >
-                <IconGithub :size="16" />
-                GitHub
+              <a :href="personal.github" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="GitHub profile">
+                <IconGithub :size="16" /> GitHub
               </a>
-              <a
-                :href="personal.linkedin"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn-ghost"
-                aria-label="LinkedIn profile"
-              >
-                <IconLinkedin :size="16" />
-                LinkedIn
+              <a :href="personal.linkedin" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="LinkedIn profile">
+                <IconLinkedin :size="16" /> LinkedIn
               </a>
             </div>
           </div>
@@ -68,7 +51,6 @@ function scrollToProjects() {
 
         <!-- Right column: photo + status card -->
         <aside class="hero-aside" aria-label="Profile and status">
-          <!-- Photo -->
           <div class="photo-wrap">
             <img
               :src="photoUrl"
@@ -80,27 +62,26 @@ function scrollToProjects() {
             />
           </div>
 
-          <!-- Status card -->
           <div class="status-card">
             <div class="status-current">
               <span class="status-dot" aria-hidden="true" />
-              <span class="status-text">Fullstack Engineer · PT Vita Shopindo</span>
+              <span class="status-text">{{ t.hero.status_label }}</span>
             </div>
             <dl class="status-list">
               <div class="status-row">
-                <dt>Role</dt>
+                <dt>{{ t.hero.status.role }}</dt>
                 <dd>Fullstack Engineer</dd>
               </div>
               <div class="status-row">
-                <dt>Company</dt>
+                <dt>{{ t.hero.status.company }}</dt>
                 <dd>PT Vita Shopindo</dd>
               </div>
               <div class="status-row">
-                <dt>Experience</dt>
+                <dt>{{ t.hero.status.experience }}</dt>
                 <dd>5+ years</dd>
               </div>
               <div class="status-row">
-                <dt>Location</dt>
+                <dt>{{ t.hero.status.location }}</dt>
                 <dd>Jakarta Barat</dd>
               </div>
             </dl>
@@ -108,7 +89,6 @@ function scrollToProjects() {
         </aside>
       </div>
 
-      <!-- Scroll hint -->
       <div class="scroll-hint" aria-hidden="true">
         <ArrowDown :size="16" />
       </div>
@@ -134,17 +114,8 @@ function scrollToProjects() {
   }
 }
 
-/* Photo */
-.photo-wrap {
-  display: flex;
-  justify-content: center;
-}
-
-@media (min-width: 768px) {
-  .photo-wrap {
-    justify-content: stretch;
-  }
-}
+.photo-wrap { display: flex; justify-content: center; }
+@media (min-width: 768px) { .photo-wrap { justify-content: stretch; } }
 
 .profile-photo {
   width: 160px;
@@ -157,17 +128,10 @@ function scrollToProjects() {
 }
 
 @media (min-width: 768px) {
-  .profile-photo {
-    width: 100%;
-    height: 220px;
-  }
+  .profile-photo { width: 100%; height: 220px; }
 }
 
-.hero-aside {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.hero-aside { display: flex; flex-direction: column; gap: 1rem; }
 
 .hero-eyebrow {
   font-size: 0.8125rem;
@@ -211,12 +175,7 @@ function scrollToProjects() {
   margin-bottom: 2rem;
 }
 
-.hero-ctas {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem;
-}
+.hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
 
 .btn-primary {
   display: inline-flex;
@@ -232,10 +191,7 @@ function scrollToProjects() {
   transition: opacity 0.15s ease, transform 0.15s ease;
 }
 
-.btn-primary:hover {
-  opacity: 0.88;
-  transform: translateY(-1px);
-}
+.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
 
 .btn-ghost {
   display: inline-flex;
@@ -252,13 +208,8 @@ function scrollToProjects() {
   transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 
-.btn-ghost:hover {
-  color: var(--text-1);
-  border-color: var(--accent);
-  transform: translateY(-1px);
-}
+.btn-ghost:hover { color: var(--text-1); border-color: var(--accent); transform: translateY(-1px); }
 
-/* Status card */
 .status-card {
   background-color: var(--bg-surface);
   border: 1px solid var(--border);
@@ -284,46 +235,14 @@ function scrollToProjects() {
   flex-shrink: 0;
 }
 
-.status-text {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-2);
-}
+.status-text { font-size: 0.75rem; font-weight: 500; color: var(--text-2); }
 
-.status-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-}
+.status-list { display: flex; flex-direction: column; gap: 0.6rem; }
 
-.status-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 0.8125rem;
-}
+.status-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.8125rem; }
+.status-row dt { color: var(--text-3); font-weight: 400; }
+.status-row dd { color: var(--text-1); font-weight: 500; text-align: right; }
 
-.status-row dt {
-  color: var(--text-3);
-  font-weight: 400;
-}
-
-.status-row dd {
-  color: var(--text-1);
-  font-weight: 500;
-  text-align: right;
-}
-
-/* Scroll hint */
-.scroll-hint {
-  display: flex;
-  justify-content: center;
-  color: var(--text-3);
-  animation: bounce 2s ease infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(4px); }
-}
+.scroll-hint { display: flex; justify-content: center; color: var(--text-3); animation: bounce 2s ease infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
 </style>

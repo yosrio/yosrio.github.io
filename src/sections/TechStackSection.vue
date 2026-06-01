@@ -1,29 +1,26 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { skillGroups } from '@/data/skills'
 import { useReveal } from '@/composables/useReveal'
+import { useLocale } from '@/composables/useLocale'
+import { translations } from '@/data/translations'
 
 const { el, visible } = useReveal()
+const { locale } = useLocale()
+const t = computed(() => translations[locale.value])
 </script>
 
 <template>
   <section id="stack" class="section" aria-labelledby="stack-heading">
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
-        <p class="section-label">02 — Stack</p>
-        <h2 id="stack-heading" class="stack-heading">Tools I work with.</h2>
-        <p class="stack-sub">
-          Four years in e-commerce backend work has solidified my core toolkit.
-          The "Currently Learning" group is where I'm actively building new depth.
-        </p>
+        <p class="section-label">{{ t.stack.label }}</p>
+        <h2 id="stack-heading" class="stack-heading">{{ t.stack.heading }}</h2>
+        <p class="stack-sub">{{ t.stack.sub }}</p>
 
         <div class="stack-grid">
-          <div
-            v-for="group in skillGroups"
-            :key="group.label"
-            class="stack-group"
-            :class="{ 'stack-group--learning': group.label === 'Currently Learning' }"
-          >
-            <h3 class="group-label">{{ group.label }}</h3>
+          <div v-for="group in skillGroups" :key="group.label" class="stack-group">
+            <h3 class="group-label">{{ locale === 'id' ? group.label_id : group.label }}</h3>
             <div class="tags-wrap">
               <span v-for="skill in group.skills" :key="skill" class="tag">{{ skill }}</span>
             </div>
@@ -65,11 +62,6 @@ const { el, visible } = useReveal()
   padding: 1.25rem;
 }
 
-.stack-group--learning {
-  border-color: var(--accent);
-  background-color: var(--accent-light);
-}
-
 .group-label {
   font-size: 0.6875rem;
   font-weight: 600;
@@ -79,13 +71,5 @@ const { el, visible } = useReveal()
   margin-bottom: 0.75rem;
 }
 
-.stack-group--learning .group-label {
-  color: var(--accent);
-}
-
-.tags-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 </style>

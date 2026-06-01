@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { ChevronDown, ChevronUp } from '@lucide/vue'
 import { projectGroups } from '@/data/projects'
 import { useReveal } from '@/composables/useReveal'
+import { useLocale } from '@/composables/useLocale'
+import { translations } from '@/data/translations'
 
 const { el, visible } = useReveal()
+const { locale } = useLocale()
+const t = computed(() => translations[locale.value])
 
 const INITIAL_SHOW = 4
-
 const expanded = ref<Record<string, boolean>>({})
 
 function toggle(company: string) {
@@ -17,41 +20,36 @@ function toggle(company: string) {
 function isExpanded(company: string) {
   return !!expanded.value[company]
 }
+
+function getHighlights(project: typeof projectGroups[0]['projects'][0]) {
+  return locale.value === 'id' ? project.highlights_id : project.highlights
+}
 </script>
 
 <template>
   <section id="projects" class="section" aria-labelledby="projects-heading">
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
-        <p class="section-label">04 — Projects</p>
-        <h2 id="projects-heading" class="projects-heading">Work by company.</h2>
-        <p class="projects-sub">
-          Projects I've worked on, grouped by employer.
-        </p>
+        <p class="section-label">{{ t.projects.label }}</p>
+        <h2 id="projects-heading" class="projects-heading">{{ t.projects.heading }}</h2>
+        <p class="projects-sub">{{ t.projects.sub }}</p>
 
         <div class="company-list">
-          <div
-            v-for="group in projectGroups"
-            :key="group.company"
-            class="company-block"
-          >
-            <!-- Company header -->
+          <div v-for="group in projectGroups" :key="group.company" class="company-block">
             <div class="company-header">
               <div class="company-meta">
                 <h3 class="company-name">{{ group.company }}</h3>
                 <span class="company-period">{{ group.period }}</span>
               </div>
               <span v-if="group.projects.length > 0" class="project-count">
-                {{ group.projects.length }} project{{ group.projects.length > 1 ? 's' : '' }}
+                {{ t.projects.count(group.projects.length) }}
               </span>
             </div>
 
-            <!-- Empty state -->
             <div v-if="group.projects.length === 0" class="empty-state">
-              <span>Projects coming soon.</span>
+              {{ t.projects.empty }}
             </div>
 
-            <!-- Projects grid -->
             <template v-else>
               <div class="projects-grid">
                 <article
@@ -66,22 +64,21 @@ function isExpanded(company: string) {
                       class="project-type"
                       :class="project.type === 'external' ? 'project-type--external' : 'project-type--internal'"
                     >
-                      {{ project.type === 'external' ? 'Client' : 'Internal' }}
+                      {{ project.type === 'external' ? t.projects.client : t.projects.internal }}
                     </span>
                   </div>
                   <ul class="project-highlights">
-                    <li v-for="(item, i) in project.highlights" :key="i">
+                    <li v-for="(item, i) in getHighlights(project)" :key="i">
                       <span class="highlight-dash" aria-hidden="true">—</span>
                       <span>{{ item }}</span>
                     </li>
                   </ul>
                   <div class="project-tech">
-                    <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
+                    <span v-for="tech in project.tech" :key="tech" class="tag">{{ tech }}</span>
                   </div>
                 </article>
               </div>
 
-              <!-- Show more / less button -->
               <button
                 v-if="group.projects.length > INITIAL_SHOW"
                 class="show-more-btn"
@@ -90,11 +87,11 @@ function isExpanded(company: string) {
               >
                 <template v-if="!isExpanded(group.company)">
                   <ChevronDown :size="15" aria-hidden="true" />
-                  Show {{ group.projects.length - INITIAL_SHOW }} more
+                  {{ t.projects.show_more(group.projects.length - INITIAL_SHOW) }}
                 </template>
                 <template v-else>
                   <ChevronUp :size="15" aria-hidden="true" />
-                  Show less
+                  {{ t.projects.show_less }}
                 </template>
               </button>
             </template>
@@ -115,28 +112,11 @@ function isExpanded(company: string) {
   margin-top: 0.375rem;
 }
 
-.projects-sub {
-  font-size: 0.9375rem;
-  color: var(--text-2);
-  max-width: 60ch;
-  line-height: 1.65;
-  margin-bottom: 2rem;
-}
+.projects-sub { font-size: 0.9375rem; color: var(--text-2); max-width: 60ch; line-height: 1.65; margin-bottom: 2rem; }
 
-/* Company list */
-.company-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-}
+.company-list { display: flex; flex-direction: column; gap: 2.5rem; }
+.company-block { display: flex; flex-direction: column; gap: 1rem; }
 
-.company-block {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Company header */
 .company-header {
   display: flex;
   align-items: baseline;
@@ -146,35 +126,11 @@ function isExpanded(company: string) {
   border-bottom: 1px solid var(--border);
 }
 
-.company-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.625rem;
-}
+.company-meta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.625rem; }
+.company-name { font-size: 1rem; font-weight: 700; color: var(--text-1); letter-spacing: -0.01em; }
+.company-period { font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-3); }
+.project-count { font-size: 0.75rem; font-weight: 500; color: var(--text-3); white-space: nowrap; flex-shrink: 0; }
 
-.company-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-1);
-  letter-spacing: -0.01em;
-}
-
-.company-period {
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  color: var(--text-3);
-}
-
-.project-count {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-3);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-/* Empty state */
 .empty-state {
   background-color: var(--bg-raised);
   border: 1px dashed var(--border);
@@ -185,26 +141,9 @@ function isExpanded(company: string) {
   color: var(--text-3);
 }
 
-/* Grid */
-.projects-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
+.projects-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 640px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
 
-@media (min-width: 640px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Card */
 .project-card {
   display: flex;
   flex-direction: column;
@@ -216,24 +155,10 @@ function isExpanded(company: string) {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.project-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-light);
-}
+.project-card:hover { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-light); }
 
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-
-.project-name {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-1);
-  line-height: 1.3;
-}
+.project-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+.project-name { font-size: 0.9375rem; font-weight: 600; color: var(--text-1); line-height: 1.3; }
 
 .project-type {
   font-size: 0.625rem;
@@ -247,51 +172,15 @@ function isExpanded(company: string) {
   margin-top: 2px;
 }
 
-.project-type--external {
-  background-color: var(--accent-light);
-  color: var(--accent);
-}
+.project-type--external { background-color: var(--accent-light); color: var(--accent); }
+.project-type--internal { background-color: var(--bg-raised); color: var(--text-3); border: 1px solid var(--border); }
 
-.project-type--internal {
-  background-color: var(--bg-raised);
-  color: var(--text-3);
-  border: 1px solid var(--border);
-}
+.project-highlights { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.35rem; flex: 1; }
+.project-highlights li { display: flex; gap: 0.5rem; font-size: 0.8125rem; line-height: 1.55; color: var(--text-2); }
+.highlight-dash { color: var(--accent); font-weight: 600; flex-shrink: 0; }
 
-/* Highlights */
-.project-highlights {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  flex: 1;
-}
+.project-tech { display: flex; flex-wrap: wrap; gap: 0.35rem; padding-top: 0.5rem; border-top: 1px solid var(--border-faint); }
 
-.project-highlights li {
-  display: flex;
-  gap: 0.5rem;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  color: var(--text-2);
-}
-
-.highlight-dash {
-  color: var(--accent);
-  font-weight: 600;
-  flex-shrink: 0;
-}
-
-.project-tech {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  padding-top: 0.5rem;
-  border-top: 1px solid var(--border-faint);
-}
-
-/* Show more button */
 .show-more-btn {
   display: inline-flex;
   align-items: center;
@@ -308,8 +197,5 @@ function isExpanded(company: string) {
   align-self: flex-start;
 }
 
-.show-more-btn:hover {
-  border-color: var(--accent);
-  background-color: var(--accent-light);
-}
+.show-more-btn:hover { border-color: var(--accent); background-color: var(--accent-light); }
 </style>
