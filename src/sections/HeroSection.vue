@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ArrowDown } from '@lucide/vue'
+import { ArrowDown, FileText } from '@lucide/vue'
 import { personal } from '@/data/personal'
 import { useLocale } from '@/composables/useLocale'
 import { translations } from '@/data/translations'
 import IconGithub from '@/components/icons/IconGithub.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
+
+const cvUrl = `${import.meta.env.BASE_URL}cv.html`
 
 const { locale } = useLocale()
 const t = computed(() => translations[locale.value])
@@ -38,12 +40,15 @@ function scrollToProjects() {
             <a href="#projects" class="btn-primary" @click.prevent="scrollToProjects">
               {{ t.hero.cta_projects }}
             </a>
-            <div class="flex gap-3">
+            <div class="flex gap-3 flex-wrap">
               <a :href="personal.github" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="GitHub profile">
                 <IconGithub :size="16" /> GitHub
               </a>
               <a :href="personal.linkedin" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="LinkedIn profile">
                 <IconLinkedin :size="16" /> LinkedIn
+              </a>
+              <a :href="cvUrl" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="View CV">
+                <FileText :size="16" /> CV
               </a>
             </div>
           </div>
