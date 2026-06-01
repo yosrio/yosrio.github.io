@@ -4,7 +4,6 @@ import { personal } from '@/data/personal'
 import { useReveal } from '@/composables/useReveal'
 
 const { el, visible } = useReveal()
-const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
 </script>
 
 <template>
@@ -26,24 +25,12 @@ const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
           </div>
 
           <aside class="about-sidebar" aria-label="Quick facts">
-            <!-- Photo -->
-            <div class="about-photo-wrap">
-              <img
-                :src="photoUrl"
-                :alt="`${personal.name} profile photo`"
-                class="about-photo"
-                width="280"
-                height="280"
-                loading="lazy"
-              />
-            </div>
-
             <div class="fact-card">
               <div class="fact-item">
                 <Briefcase :size="15" class="fact-icon" aria-hidden="true" />
                 <div>
                   <p class="fact-label">Current Role</p>
-                  <p class="fact-value">Software Engineer at iCube</p>
+                  <p class="fact-value">Fullstack Engineer at PT Vita Shopindo</p>
                 </div>
               </div>
 
@@ -111,27 +98,6 @@ const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
   font-size: 0.9375rem;
   line-height: 1.75;
   color: var(--text-2);
-}
-
-/* Photo */
-.about-photo-wrap {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .about-photo-wrap {
-    display: block;
-  }
-}
-
-.about-photo {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-  object-position: center 25%;
-  border-radius: 0.75rem;
-  border: 1px solid var(--border);
-  display: block;
 }
 
 /* Sidebar */

@@ -1,12 +1,12 @@
 export const personal = {
   name: 'Yos Rio Puraga',
   firstName: 'Yos Rio',
-  title: 'Backend Developer',
-  location: 'Yogyakarta, Indonesia',
+  title: 'Fullstack Engineer',
+  location: 'Jakarta Barat, Indonesia',
   tagline: 'Building reliable backend systems for e-commerce.',
   bio: [
-    "I've been writing PHP and building e-commerce backends for four years, most of that time at iCube. Day to day, that means developing custom Magento 2 modules, architecting middleware to connect platforms that weren't designed to talk to each other, and integrating services ranging from WhatsApp Commerce to n8n automation workflows.",
-    'I care about code that is maintainable and systems that work reliably. Outside of client work, I build personal projects to explore areas I\'m curious about — currently studying Java and Spring Boot, and building tools for personal finance management and travel planning.',
+    "I spent five years at iCube building e-commerce backends — developing custom Magento 2 modules, connecting platforms through middleware, and integrating services like WhatsApp Commerce and n8n automation workflows. Most of that work lived in PHP, but it gave me a deep understanding of how complex, multi-platform systems actually hold together under production load.",
+    "I've recently moved into fullstack engineering at PT Vita Shopindo, where I work with Laravel, Golang, Vue, and Nuxt — building end-to-end features and getting closer to the full product lifecycle. Currently working on-site in West Jakarta.",
   ],
   email: 'yosrio.id@gmail.com',
   github: 'https://github.com/yosrio',

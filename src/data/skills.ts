@@ -9,19 +9,19 @@ export const skillGroups: SkillGroup[] = [
     skills: ['Magento 2', 'Shopify', 'n8n'],
   },
   {
-    label: 'Frameworks',
-    skills: ['Laravel', 'ReactJS'],
+    label: 'Backend',
+    skills: ['PHP', 'Golang', 'Laravel'],
   },
   {
-    label: 'Languages',
-    skills: ['PHP', 'JavaScript', 'SQL'],
+    label: 'Frontend',
+    skills: ['Vue', 'Nuxt', 'ReactJS', 'JavaScript'],
   },
   {
     label: 'APIs & Integration',
     skills: ['GraphQL', 'REST API', 'WhatsApp Business API'],
   },
   {
-    label: 'Tools & Databases',
+    label: 'Databases & Tools',
     skills: ['MySQL', 'Git', 'Composer'],
   },
 ]

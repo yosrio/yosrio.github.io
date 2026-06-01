@@ -12,9 +12,9 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     company: 'PT Vita Shopindo',
-    role: 'Software Engineer',
+    role: 'Fullstack Engineer',
     period: 'Jun 2026 – Present',
-    location: 'Indonesia · Remote',
+    location: 'Jakarta Barat, Indonesia · WFO',
     description: '',
     highlights: [],
     tech: [],
@@ -23,7 +23,7 @@ export const experience: ExperienceItem[] = [
   {
     company: 'iCube',
     role: 'Software Engineer',
-    period: 'Jan 2020 – May 2026 · 6 yrs 5 mos',
+    period: 'Aug 2020 – May 2026 · 5 yrs 9 mos',
     location: 'Yogyakarta, Indonesia · Remote',
     description:
       'iCube is an e-commerce technology company delivering Magento and Shopify solutions for brands across Southeast Asia and beyond.',
@@ -40,7 +40,7 @@ export const experience: ExperienceItem[] = [
   {
     company: 'JogjaTv',
     role: 'Web Development Intern',
-    period: '2020 · 3 mos',
+    period: '2019 · 3 mos',
     location: 'Yogyakarta, Indonesia',
     description: 'Internship as part of the Informatics undergraduate programme at Universitas Sanata Dharma.',
     highlights: [

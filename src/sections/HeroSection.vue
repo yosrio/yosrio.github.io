@@ -82,14 +82,14 @@ function scrollToProjects() {
 
           <!-- Status card -->
           <div class="status-card">
-            <div class="status-dot-wrap">
+            <div class="status-current">
               <span class="status-dot" aria-hidden="true" />
-              <span class="status-text">Open to opportunities</span>
+              <span class="status-text">Fullstack Engineer · PT Vita Shopindo</span>
             </div>
             <dl class="status-list">
               <div class="status-row">
                 <dt>Role</dt>
-                <dd>Software Engineer</dd>
+                <dd>Fullstack Engineer</dd>
               </div>
               <div class="status-row">
                 <dt>Company</dt>
@@ -97,11 +97,11 @@ function scrollToProjects() {
               </div>
               <div class="status-row">
                 <dt>Experience</dt>
-                <dd>6+ years</dd>
+                <dd>5+ years</dd>
               </div>
               <div class="status-row">
-                <dt>Focus</dt>
-                <dd>E-commerce backend</dd>
+                <dt>Location</dt>
+                <dd>Jakarta Barat</dd>
               </div>
             </dl>
           </div>
@@ -266,7 +266,7 @@ function scrollToProjects() {
   padding: 1.25rem 1.5rem;
 }
 
-.status-dot-wrap {
+.status-current {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -280,14 +280,8 @@ function scrollToProjects() {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
-  animation: pulse 2.5s ease infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); }
-  50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.05); }
+  background-color: var(--accent);
+  flex-shrink: 0;
 }
 
 .status-text {
