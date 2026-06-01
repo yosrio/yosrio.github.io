@@ -4,6 +4,7 @@ import { personal } from '@/data/personal'
 import { useReveal } from '@/composables/useReveal'
 
 const { el, visible } = useReveal()
+const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
 </script>
 
 <template>
@@ -25,6 +26,18 @@ const { el, visible } = useReveal()
           </div>
 
           <aside class="about-sidebar" aria-label="Quick facts">
+            <!-- Photo -->
+            <div class="about-photo-wrap">
+              <img
+                :src="photoUrl"
+                :alt="`${personal.name} profile photo`"
+                class="about-photo"
+                width="280"
+                height="280"
+                loading="lazy"
+              />
+            </div>
+
             <div class="fact-card">
               <div class="fact-item">
                 <Briefcase :size="15" class="fact-icon" aria-hidden="true" />
@@ -98,6 +111,27 @@ const { el, visible } = useReveal()
   font-size: 0.9375rem;
   line-height: 1.75;
   color: var(--text-2);
+}
+
+/* Photo */
+.about-photo-wrap {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .about-photo-wrap {
+    display: block;
+  }
+}
+
+.about-photo {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border);
+  display: block;
 }
 
 /* Sidebar */

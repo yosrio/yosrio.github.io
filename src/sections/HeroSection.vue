@@ -4,6 +4,8 @@ import { personal } from '@/data/personal'
 import IconGithub from '@/components/icons/IconGithub.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 
+const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
+
 function scrollToProjects() {
   document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
 }
@@ -64,12 +66,25 @@ function scrollToProjects() {
           </div>
         </div>
 
-        <!-- Status card -->
-        <aside class="hero-aside" aria-label="Status">
+        <!-- Right column: photo + status card -->
+        <aside class="hero-aside" aria-label="Profile and status">
+          <!-- Photo -->
+          <div class="photo-wrap">
+            <img
+              :src="photoUrl"
+              :alt="`${personal.name} profile photo`"
+              class="profile-photo"
+              width="280"
+              height="280"
+              loading="eager"
+            />
+          </div>
+
+          <!-- Status card -->
           <div class="status-card">
             <div class="status-dot-wrap">
               <span class="status-dot" aria-hidden="true" />
-              <span class="status-text">Available for opportunities</span>
+              <span class="status-text">Open to opportunities</span>
             </div>
             <dl class="status-list">
               <div class="status-row">
@@ -78,11 +93,11 @@ function scrollToProjects() {
               </div>
               <div class="status-row">
                 <dt>Company</dt>
-                <dd>iCube</dd>
+                <dd>PT Vita Shopindo</dd>
               </div>
               <div class="status-row">
                 <dt>Experience</dt>
-                <dd>4+ years</dd>
+                <dd>6+ years</dd>
               </div>
               <div class="status-row">
                 <dt>Focus</dt>
@@ -105,7 +120,7 @@ function scrollToProjects() {
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 3rem;
+  gap: 2.5rem;
   align-items: start;
   padding-top: 2rem;
   padding-bottom: 4rem;
@@ -117,6 +132,41 @@ function scrollToProjects() {
     gap: 4rem;
     align-items: center;
   }
+}
+
+/* Photo */
+.photo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .photo-wrap {
+    justify-content: stretch;
+  }
+}
+
+.profile-photo {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 0.875rem;
+  border: 2px solid var(--border);
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .profile-photo {
+    width: 100%;
+    height: 220px;
+  }
+}
+
+.hero-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .hero-eyebrow {
