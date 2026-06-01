@@ -1,0 +1,285 @@
+<script setup lang="ts">
+import { ArrowDown } from '@lucide/vue'
+import { personal } from '@/data/personal'
+import IconGithub from '@/components/icons/IconGithub.vue'
+import IconLinkedin from '@/components/icons/IconLinkedin.vue'
+
+function scrollToProjects() {
+  document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })
+}
+</script>
+
+<template>
+  <section
+    id="home"
+    class="min-h-screen flex flex-col justify-center pt-16"
+    aria-label="Introduction"
+  >
+    <div class="section-inner">
+      <div class="hero-grid">
+        <!-- Text content -->
+        <div class="hero-content">
+          <p class="hero-eyebrow">
+            <span class="inline-block w-8 h-px align-middle mr-2" style="background-color: var(--accent)" />
+            Based in {{ personal.location }}
+          </p>
+
+          <h1 class="hero-name">{{ personal.name }}</h1>
+
+          <p class="hero-title">{{ personal.title }}</p>
+
+          <p class="hero-tagline">{{ personal.tagline }}</p>
+
+          <p class="hero-bio">
+            {{ personal.bio[0] }}
+          </p>
+
+          <!-- CTAs -->
+          <div class="hero-ctas">
+            <a href="#projects" class="btn-primary" @click.prevent="scrollToProjects">
+              View Projects
+            </a>
+            <div class="flex gap-3">
+              <a
+                :href="personal.github"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-ghost"
+                aria-label="GitHub profile"
+              >
+                <IconGithub :size="16" />
+                GitHub
+              </a>
+              <a
+                :href="personal.linkedin"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn-ghost"
+                aria-label="LinkedIn profile"
+              >
+                <IconLinkedin :size="16" />
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status card -->
+        <aside class="hero-aside" aria-label="Status">
+          <div class="status-card">
+            <div class="status-dot-wrap">
+              <span class="status-dot" aria-hidden="true" />
+              <span class="status-text">Available for opportunities</span>
+            </div>
+            <dl class="status-list">
+              <div class="status-row">
+                <dt>Role</dt>
+                <dd>Software Engineer</dd>
+              </div>
+              <div class="status-row">
+                <dt>Company</dt>
+                <dd>iCube</dd>
+              </div>
+              <div class="status-row">
+                <dt>Experience</dt>
+                <dd>4+ years</dd>
+              </div>
+              <div class="status-row">
+                <dt>Focus</dt>
+                <dd>E-commerce backend</dd>
+              </div>
+            </dl>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Scroll hint -->
+      <div class="scroll-hint" aria-hidden="true">
+        <ArrowDown :size="16" />
+      </div>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: start;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr 280px;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
+.hero-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-3);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.hero-name {
+  font-size: clamp(2.25rem, 6vw, 3.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--text-1);
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+}
+
+.hero-tagline {
+  font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+  font-weight: 500;
+  color: var(--text-2);
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+}
+
+.hero-bio {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-2);
+  max-width: 52ch;
+  margin-bottom: 2rem;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--accent);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  background-color: var(--bg-surface);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.btn-ghost:hover {
+  color: var(--text-1);
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Status card */
+.status-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.875rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.status-dot-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-faint);
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+  animation: pulse 2.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); }
+  50% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.05); }
+}
+
+.status-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-2);
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.8125rem;
+}
+
+.status-row dt {
+  color: var(--text-3);
+  font-weight: 400;
+}
+
+.status-row dd {
+  color: var(--text-1);
+  font-weight: 500;
+  text-align: right;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  display: flex;
+  justify-content: center;
+  color: var(--text-3);
+  animation: bounce 2s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+</style>

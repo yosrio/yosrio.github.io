@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+/* Class-based dark mode */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* ─── Design tokens ─────────────────────────────────── */
+:root {
+  --bg-base:     #FAFAF9;
+  --bg-surface:  #FFFFFF;
+  --bg-raised:   #F5F5F4;
+
+  --border:       #E7E5E4;
+  --border-faint: #F0EFEE;
+
+  --text-1: #1C1917;
+  --text-2: #57534E;
+  --text-3: #A8A29E;
+
+  --accent:        #0EA5E9;
+  --accent-light:  #E0F2FE;
+  --accent-muted:  #0284C7;
+}
+
+.dark {
+  --bg-base:     #111110;
+  --bg-surface:  #1A1918;
+  --bg-raised:   #232220;
+
+  --border:       #2E2C29;
+  --border-faint: #222120;
+
+  --text-1: #F5F4EF;
+  --text-2: #A8A39D;
+  --text-3: #6B6660;
+
+  --accent:        #38BDF8;
+  --accent-light:  #0C2640;
+  --accent-muted:  #7DD3FC;
+}
+
+/* ─── Base ──────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-base);
+  color: var(--text-1);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ─── Focus visible ─────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ─────────────────────────────────────── */
+::selection {
+  background: var(--accent-light);
+  color: var(--text-1);
+}
+
+/* ─── Scrollbar (subtle) ────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+/* ─── Utility classes ───────────────────────────────── */
+.bg-base      { background-color: var(--bg-base); }
+.bg-surface   { background-color: var(--bg-surface); }
+.bg-raised    { background-color: var(--bg-raised); }
+
+.border-token { border-color: var(--border); }
+.border-faint { border-color: var(--border-faint); }
+
+.text-1 { color: var(--text-1); }
+.text-2 { color: var(--text-2); }
+.text-3 { color: var(--text-3); }
+
+.text-accent  { color: var(--accent); }
+.bg-accent    { background-color: var(--accent); }
+.bg-accent-light { background-color: var(--accent-light); }
+
+/* ─── Section layout ────────────────────────────────── */
+.section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.section-inner {
+  max-width: 64rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-inner {
+    padding-inline: 2rem;
+  }
+}
+
+/* ─── Section label ─────────────────────────────────── */
+.section-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Card ──────────────────────────────────────────── */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* ─── Tag / Badge ───────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  border-radius: 0.375rem;
+  background-color: var(--bg-raised);
+  color: var(--text-2);
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+/* ─── Reveal animation ──────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Link arrow ────────────────────────────────────── */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: gap 0.15s ease;
+}
+
+.link-arrow:hover {
+  gap: 0.4rem;
+}
