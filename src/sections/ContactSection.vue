@@ -30,6 +30,7 @@ const mode = ref<Mode>('email')
 const senderEmail = ref('')
 const senderName = ref('')
 const message = ref('')
+const sent = ref(false)
 
 function send() {
   const msg = message.value.trim()
@@ -40,9 +41,18 @@ function send() {
     const body = encodeURIComponent(msg)
     window.open(`mailto:${personal.email}?subject=${subject}&body=${body}`)
   } else {
-    const text = encodeURIComponent(`Hi, I'm ${senderName.value}.\n\n${msg}`)
-    window.open(`${personal.whatsapp}?text=${text}`)
+    const greeting =
+      locale.value === 'id'
+        ? `Halo, nama saya ${senderName.value}.\n\n${msg}`
+        : `Hi, I'm ${senderName.value}.\n\n${msg}`
+    window.open(`${personal.whatsapp}?text=${encodeURIComponent(greeting)}`)
   }
+
+  senderEmail.value = ''
+  senderName.value = ''
+  message.value = ''
+  sent.value = true
+  setTimeout(() => { sent.value = false }, 3000)
 }
 
 const canSend = computed(() => {
@@ -164,6 +174,14 @@ const links: ContactLink[] = [
                   rows="4"
                 />
               </div>
+
+              <!-- Success -->
+              <Transition name="fade">
+                <div v-if="sent" class="form-success" role="status">
+                  <span>✓</span>
+                  {{ mode === 'email' ? t.contact.form.note_email : t.contact.form.note_wa }}
+                </div>
+              </Transition>
 
               <!-- Submit -->
               <div class="form-footer">
@@ -381,10 +399,33 @@ const links: ContactLink[] = [
 .form-submit:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
 .form-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
+/* Success */
+.form-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #16a34a;
+  background-color: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+}
+
+.dark .form-success {
+  color: #4ade80;
+  background-color: #052e16;
+  border-color: #166534;
+}
+
 /* Field transition */
 .field-enter-active, .field-leave-active { transition: opacity 0.15s ease, transform 0.15s ease; }
 .field-enter-from { opacity: 0; transform: translateY(-4px); }
 .field-leave-to { opacity: 0; transform: translateY(4px); }
+
+.fade-enter-active, .fade-leave-active { transition: opacity 0.2s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
 
 /* Site footer */
 .site-footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border-faint); }

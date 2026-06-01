@@ -3,20 +3,23 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { Menu, X } from '@lucide/vue'
 import ThemeToggle from './ThemeToggle.vue'
 import { useLocale } from '@/composables/useLocale'
+import { useScrollSpy } from '@/composables/useScrollSpy'
 import { translations } from '@/data/translations'
 
 const { locale, toggle: toggleLocale } = useLocale()
 const t = computed(() => translations[locale.value])
 
+const { active } = useScrollSpy(['about', 'stack', 'experience', 'projects', 'contact'])
+
 const scrolled = ref(false)
 const menuOpen = ref(false)
 
 const navLinks = computed(() => [
-  { label: t.value.nav.about, href: '#about' },
-  { label: t.value.nav.stack, href: '#stack' },
-  { label: t.value.nav.experience, href: '#experience' },
-  { label: t.value.nav.projects, href: '#projects' },
-  { label: t.value.nav.contact, href: '#contact' },
+  { label: t.value.nav.about, href: '#about', id: 'about' },
+  { label: t.value.nav.stack, href: '#stack', id: 'stack' },
+  { label: t.value.nav.experience, href: '#experience', id: 'experience' },
+  { label: t.value.nav.projects, href: '#projects', id: 'projects' },
+  { label: t.value.nav.contact, href: '#contact', id: 'contact' },
 ])
 
 function onScroll() {
@@ -25,8 +28,7 @@ function onScroll() {
 
 function handleNavClick(href: string) {
   menuOpen.value = false
-  const el = document.querySelector(href)
-  el?.scrollIntoView({ behavior: 'smooth' })
+  document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
 }
 
 onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
@@ -40,39 +42,31 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   >
     <div class="max-w-5xl mx-auto px-6 md:px-8">
       <div class="flex items-center justify-between h-16">
-        <!-- Logo -->
         <a href="#" class="font-semibold text-sm tracking-tight" style="color: var(--text-1)" aria-label="Home">
-          <span class="font-mono text-accent" style="color: var(--accent)">yos</span><span style="color: var(--text-2)">rio</span>
+          <span class="font-mono" style="color: var(--accent)">yos</span><span style="color: var(--text-2)">rio</span>
         </a>
 
-        <!-- Desktop nav -->
         <nav class="hidden md:flex items-center gap-1" aria-label="Primary navigation">
           <a
             v-for="link in navLinks"
-            :key="link.href"
+            :key="link.id"
             :href="link.href"
             class="nav-link px-3 py-1.5 rounded-md text-sm font-medium transition-colors duration-150"
+            :class="{ 'nav-link--active': active === link.id }"
+            :aria-current="active === link.id ? 'page' : undefined"
             @click.prevent="handleNavClick(link.href)"
           >
             {{ link.label }}
           </a>
         </nav>
 
-        <!-- Right side -->
         <div class="flex items-center gap-1">
-          <!-- Language toggle -->
-          <button
-            class="lang-btn"
-            :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'}`"
-            @click="toggleLocale"
-          >
+          <button class="lang-btn" :aria-label="`Switch to ${locale === 'en' ? 'Indonesian' : 'English'}`" @click="toggleLocale">
             <span :class="locale === 'en' ? 'lang-active' : 'lang-inactive'">EN</span>
             <span class="lang-sep">|</span>
             <span :class="locale === 'id' ? 'lang-active' : 'lang-inactive'">ID</span>
           </button>
-
           <ThemeToggle />
-
           <button
             class="md:hidden p-2 rounded-md nav-link transition-colors"
             :aria-label="menuOpen ? 'Close menu' : 'Open menu'"
@@ -86,7 +80,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
       </div>
     </div>
 
-    <!-- Mobile menu -->
     <Transition
       enter-active-class="transition-all duration-200 ease-out"
       enter-from-class="opacity-0 -translate-y-2"
@@ -99,9 +92,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
         <nav class="flex flex-col py-3 px-6" aria-label="Mobile navigation">
           <a
             v-for="link in navLinks"
-            :key="link.href"
+            :key="link.id"
             :href="link.href"
             class="nav-link py-2.5 text-sm font-medium border-b last:border-b-0 transition-colors"
+            :class="{ 'nav-link--active': active === link.id }"
             style="border-color: var(--border-faint)"
             @click.prevent="handleNavClick(link.href)"
           >
@@ -114,9 +108,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
 </template>
 
 <style scoped>
-.nav-top {
-  background-color: transparent;
-}
+.nav-top { background-color: transparent; }
 
 .nav-scrolled {
   background-color: color-mix(in srgb, var(--bg-base) 90%, transparent);
@@ -125,14 +117,9 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   border-bottom: 1px solid var(--border-faint);
 }
 
-.nav-link {
-  color: var(--text-2);
-}
-
-.nav-link:hover {
-  color: var(--text-1);
-  background-color: var(--bg-raised);
-}
+.nav-link { color: var(--text-2); }
+.nav-link:hover { color: var(--text-1); background-color: var(--bg-raised); }
+.nav-link--active { color: var(--text-1) !important; font-weight: 600; }
 
 .mobile-menu {
   background-color: color-mix(in srgb, var(--bg-base) 95%, transparent);
@@ -140,7 +127,6 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Language toggle */
 .lang-btn {
   display: flex;
   align-items: center;
@@ -156,20 +142,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll))
   color: var(--text-2);
   transition: border-color 0.15s ease;
 }
-
-.lang-btn:hover {
-  border-color: var(--accent);
-}
-
-.lang-active {
-  color: var(--accent);
-}
-
-.lang-inactive {
-  color: var(--text-3);
-}
-
-.lang-sep {
-  color: var(--border);
-}
+.lang-btn:hover { border-color: var(--accent); }
+.lang-active { color: var(--accent); }
+.lang-inactive { color: var(--text-3); }
+.lang-sep { color: var(--border); }
 </style>

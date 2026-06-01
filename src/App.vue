@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { watch } from 'vue'
 import NavBar from '@/components/NavBar.vue'
 import HeroSection from '@/sections/HeroSection.vue'
 import AboutSection from '@/sections/AboutSection.vue'
@@ -6,6 +7,38 @@ import TechStackSection from '@/sections/TechStackSection.vue'
 import ExperienceSection from '@/sections/ExperienceSection.vue'
 import ProjectsSection from '@/sections/ProjectsSection.vue'
 import ContactSection from '@/sections/ContactSection.vue'
+import { useLocale } from '@/composables/useLocale'
+
+const { locale } = useLocale()
+
+const meta = {
+  en: {
+    title: 'Yos Rio Puraga — Fullstack Engineer',
+    description:
+      'Fullstack engineer with 5+ years building e-commerce backends. Experienced in PHP, Laravel, Golang, Magento 2, Shopify, Vue, and Nuxt. Based in Jakarta Barat, Indonesia.',
+  },
+  id: {
+    title: 'Yos Rio Puraga — Fullstack Engineer',
+    description:
+      'Fullstack engineer dengan 5+ tahun pengalaman di backend e-commerce. Berpengalaman di PHP, Laravel, Golang, Magento 2, Shopify, Vue, dan Nuxt. Berlokasi di Jakarta Barat, Indonesia.',
+  },
+}
+
+watch(
+  locale,
+  (l) => {
+    document.title = meta[l].title
+    document.documentElement.lang = l
+
+    const setMeta = (sel: string, content: string) =>
+      document.querySelector(sel)?.setAttribute('content', content)
+
+    setMeta('meta[name="description"]', meta[l].description)
+    setMeta('meta[property="og:description"]', meta[l].description)
+    setMeta('meta[property="og:locale"]', l === 'id' ? 'id_ID' : 'en_US')
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -38,8 +71,5 @@ import ContactSection from '@/sections/ContactSection.vue'
   text-decoration: none;
   transition: top 0.15s ease;
 }
-
-.skip-link:focus {
-  top: 0;
-}
+.skip-link:focus { top: 0; }
 </style>
