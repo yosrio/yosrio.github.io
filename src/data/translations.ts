@@ -36,6 +36,18 @@ export interface Trans {
     body: string
     built: string
     labels: { email: string; whatsapp: string; github: string; github_alt: string; linkedin: string }
+    form: {
+      label_email: string
+      label_name: string
+      label_message: string
+      placeholder_email: string
+      placeholder_name: string
+      placeholder_message: string
+      send_email: string
+      send_wa: string
+      note_email: string
+      note_wa: string
+    }
   }
 }
 
@@ -90,6 +102,18 @@ export const translations: Record<Locale, Trans> = {
       body: "Whether it's a backend engineering role, a freelance project, or just a question — I read every message and respond within a day or two.",
       built: 'Built with Vue 3 + Tailwind CSS.',
       labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
+      form: {
+        label_email: 'Your email',
+        label_name: 'Your name',
+        label_message: 'Message',
+        placeholder_email: 'your@email.com',
+        placeholder_name: 'Your name',
+        placeholder_message: 'Write your message here…',
+        send_email: 'Open Email',
+        send_wa: 'Open WhatsApp',
+        note_email: 'Opens your email client',
+        note_wa: 'Opens WhatsApp with your message',
+      },
     },
   },
 
@@ -143,6 +167,18 @@ export const translations: Record<Locale, Trans> = {
       body: 'Baik itu peluang kerja, proyek freelance, maupun sekadar pertanyaan — saya membaca setiap pesan dan biasanya merespons dalam satu-dua hari.',
       built: 'Dibangun dengan Vue 3 + Tailwind CSS.',
       labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
+      form: {
+        label_email: 'Email kamu',
+        label_name: 'Nama kamu',
+        label_message: 'Pesan',
+        placeholder_email: 'email@kamu.com',
+        placeholder_name: 'Nama kamu',
+        placeholder_message: 'Tulis pesanmu di sini…',
+        send_email: 'Buka Email',
+        send_wa: 'Buka WhatsApp',
+        note_email: 'Membuka aplikasi email',
+        note_wa: 'Membuka WhatsApp dengan pesanmu',
+      },
     },
   },
 }
