@@ -150,7 +150,7 @@ function scrollToProjects() {
   width: 160px;
   height: 160px;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 25%;
   border-radius: 0.875rem;
   border: 2px solid var(--border);
   display: block;

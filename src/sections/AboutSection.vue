@@ -128,7 +128,7 @@ const photoUrl = `${import.meta.env.BASE_URL}photo.jpeg`
   width: 100%;
   height: 240px;
   object-fit: cover;
-  object-position: center top;
+  object-position: center 25%;
   border-radius: 0.75rem;
   border: 1px solid var(--border);
   display: block;
