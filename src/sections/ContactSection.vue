@@ -10,7 +10,7 @@ import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 import IconWhatsapp from '@/components/icons/IconWhatsapp.vue'
 import type { Component } from 'vue'
 
-type LabelKey = 'email' | 'whatsapp' | 'github' | 'linkedin'
+type LabelKey = 'email' | 'whatsapp' | 'github' | 'github_alt' | 'linkedin'
 
 interface ContactLink {
   key: LabelKey
@@ -43,6 +43,13 @@ const links: ContactLink[] = [
     key: 'github',
     value: 'github.com/yosrio',
     href: personal.github,
+    icon: IconGithub,
+    external: true,
+  },
+  {
+    key: 'github_alt',
+    value: 'github.com/yosrioid',
+    href: personal.github_alt,
     icon: IconGithub,
     external: true,
   },

@@ -35,7 +35,7 @@ export interface Trans {
     heading: string
     body: string
     built: string
-    labels: { email: string; whatsapp: string; github: string; linkedin: string }
+    labels: { email: string; whatsapp: string; github: string; github_alt: string; linkedin: string }
   }
 }
 
@@ -66,7 +66,7 @@ export const translations: Record<Locale, Trans> = {
     stack: {
       label: '02 — Stack',
       heading: 'Tools I work with.',
-      sub: 'Five years in e-commerce backend work has solidified my core toolkit. The frontend skills are newer — brought on by the transition to fullstack engineering at PT Vita Shopindo.',
+      sub: 'Five years of e-commerce backend work built a solid foundation. Transitioning into a fullstack role at PT Vita Shopindo expanded the stack to include Vue and Nuxt — giving me a more complete picture of how everything fits together.',
     },
     experience: {
       label: '03 — Experience',
@@ -89,7 +89,7 @@ export const translations: Record<Locale, Trans> = {
       heading: "Let's talk.",
       body: "Whether it's a backend engineering role, a freelance project, or just a question — I read every message and respond within a day or two.",
       built: 'Built with Vue 3 + Tailwind CSS.',
-      labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', linkedin: 'LinkedIn' },
+      labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
     },
   },
 
@@ -119,7 +119,7 @@ export const translations: Record<Locale, Trans> = {
     stack: {
       label: '02 — Tech Stack',
       heading: 'Yang saya gunakan sehari-hari.',
-      sub: 'Lima tahun di backend e-commerce membentuk toolkit utama saya. Skill frontend-nya lebih baru — hadir seiring transisi ke fullstack di PT Vita Shopindo.',
+      sub: 'Lima tahun di backend e-commerce membentuk fondasi toolkit saya. Bergabung sebagai fullstack engineer di PT Vita Shopindo memperluas stack ke sisi frontend — Vue dan Nuxt melengkapi pemahaman yang lebih utuh tentang keseluruhan sistem.',
     },
     experience: {
       label: '03 — Pengalaman',
@@ -142,7 +142,7 @@ export const translations: Record<Locale, Trans> = {
       heading: 'Mari terhubung.',
       body: 'Baik itu peluang kerja, proyek freelance, maupun sekadar pertanyaan — saya membaca setiap pesan dan biasanya merespons dalam satu-dua hari.',
       built: 'Dibangun dengan Vue 3 + Tailwind CSS.',
-      labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', linkedin: 'LinkedIn' },
+      labels: { email: 'Email', whatsapp: 'WhatsApp', github: 'GitHub', github_alt: 'GitHub', linkedin: 'LinkedIn' },
     },
   },
 }

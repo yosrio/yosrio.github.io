@@ -16,6 +16,7 @@ export const personal = {
   whatsapp: 'https://wa.me/6281337875817',
   whatsapp_display: '081-337-875-817',
   github: 'https://github.com/yosrio',
+  github_alt: 'https://github.com/yosrioid',
   linkedin: 'https://www.linkedin.com/in/yos-rio/',
   education: {
     school: 'Universitas Sanata Dharma',
