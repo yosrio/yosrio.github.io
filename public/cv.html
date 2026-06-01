@@ -3,17 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CV — Yos Rio Puraga</title>
+  <title>CV (ATS) — Yos Rio Puraga</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    @page {
-      size: A4;
-      margin: 16mm 18mm;
-    }
+    @page { size: A4; margin: 16mm 18mm; }
 
     body {
       font-family: 'Inter', Arial, sans-serif;
@@ -23,7 +20,6 @@
       background: #fff;
     }
 
-    /* ─── Screen wrapper ─── */
     .page {
       max-width: 210mm;
       margin: 0 auto;
@@ -33,30 +29,14 @@
 
     @media screen {
       body { background: #e5e7eb; }
-      .page {
-        min-height: 297mm;
-        margin: 28px auto;
-        box-shadow: 0 2px 24px rgba(0,0,0,0.15);
-      }
+      .page { min-height: 297mm; margin: 28px auto; box-shadow: 0 2px 24px rgba(0,0,0,0.15); }
     }
 
-    /* ─── Print button ─── */
     .print-btn {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      background: #1d4ed8;
-      color: #fff;
-      border: none;
-      padding: 9px 20px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: 0.01em;
-      z-index: 10;
-      box-shadow: 0 2px 8px rgba(29,78,216,0.3);
+      position: fixed; top: 16px; right: 16px;
+      background: #1d4ed8; color: #fff; border: none;
+      padding: 9px 20px; border-radius: 6px; font-size: 13px;
+      font-weight: 600; cursor: pointer; font-family: inherit; z-index: 10;
     }
     .print-btn:hover { background: #1e40af; }
 
@@ -66,188 +46,52 @@
       body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     }
 
-    /* ─── Header ─── */
-    .cv-name {
-      font-size: 22pt;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      color: #0f172a;
-      line-height: 1.1;
-    }
+    .cv-name { font-size: 22pt; font-weight: 700; letter-spacing: -0.02em; color: #0f172a; line-height: 1.1; }
+    .cv-title { font-size: 11pt; font-weight: 500; color: #1d4ed8; margin-top: 3pt; margin-bottom: 7pt; }
 
-    .cv-title {
-      font-size: 11pt;
-      font-weight: 500;
-      color: #1d4ed8;
-      margin-top: 3pt;
-      margin-bottom: 7pt;
-    }
-
-    .cv-contacts {
-      font-size: 8.5pt;
-      color: #475569;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2pt 0;
-    }
-
+    .cv-contacts { font-size: 8.5pt; color: #475569; display: flex; flex-wrap: wrap; }
     .cv-contacts a { color: #475569; text-decoration: none; }
-    .cv-contacts a:hover { text-decoration: underline; }
+    .sep { margin: 0 7pt; color: #cbd5e1; }
 
-    .sep {
-      margin: 0 7pt;
-      color: #cbd5e1;
-    }
-
-    /* ─── Section ─── */
     .section { margin-top: 11pt; }
-
     .section-title {
-      font-size: 7.5pt;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #1d4ed8;
-      padding-bottom: 3pt;
-      border-bottom: 1pt solid #bfdbfe;
-      margin-bottom: 7pt;
+      font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #1d4ed8;
+      padding-bottom: 3pt; border-bottom: 1pt solid #bfdbfe; margin-bottom: 7pt;
     }
 
-    /* ─── Summary ─── */
-    .summary-text {
-      font-size: 9.5pt;
-      color: #374151;
-      line-height: 1.55;
-    }
+    .summary-text { font-size: 9.5pt; color: #374151; line-height: 1.55; }
 
-    /* ─── Experience ─── */
     .exp-entry { margin-bottom: 9pt; }
     .exp-entry:last-child { margin-bottom: 0; }
-
-    .exp-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8pt;
-    }
-
+    .exp-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8pt; }
     .exp-left { flex: 1; }
-
-    .exp-role-company {
-      font-size: 9.8pt;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
+    .exp-role-company { font-size: 9.8pt; font-weight: 600; color: #0f172a; }
     .exp-company-name { color: #1d4ed8; }
+    .exp-location { font-size: 8.3pt; color: #6b7280; margin-top: 1pt; }
+    .exp-period { font-size: 8.3pt; color: #6b7280; white-space: nowrap; flex-shrink: 0; }
 
-    .exp-location {
-      font-size: 8.3pt;
-      color: #6b7280;
-      margin-top: 1pt;
-    }
+    .exp-list { list-style: none; padding: 0; margin-top: 4pt; }
+    .exp-list li { display: flex; gap: 6pt; font-size: 9.3pt; color: #374151; line-height: 1.5; margin-bottom: 2pt; }
+    .exp-list li::before { content: '•'; color: #1d4ed8; font-weight: 700; flex-shrink: 0; }
+    .exp-new { font-size: 9.3pt; color: #9ca3af; font-style: italic; margin-top: 3pt; }
 
-    .exp-period {
-      font-size: 8.3pt;
-      color: #6b7280;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    .exp-list {
-      list-style: none;
-      padding: 0;
-      margin-top: 4pt;
-    }
-
-    .exp-list li {
-      display: flex;
-      gap: 6pt;
-      font-size: 9.3pt;
-      color: #374151;
-      line-height: 1.5;
-      margin-bottom: 2pt;
-    }
-
-    .exp-list li::before {
-      content: '•';
-      color: #1d4ed8;
-      font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 0.5pt;
-    }
-
-    .exp-new {
-      font-size: 9.3pt;
-      color: #9ca3af;
-      font-style: italic;
-      margin-top: 3pt;
-    }
-
-    /* ─── Skills ─── */
-    .skills-list {
-      display: flex;
-      flex-direction: column;
-      gap: 3pt;
-    }
-
-    .skill-row {
-      display: flex;
-      gap: 0;
-      font-size: 9.3pt;
-      line-height: 1.5;
-    }
-
-    .skill-key {
-      font-weight: 600;
-      color: #374151;
-      min-width: 85pt;
-      flex-shrink: 0;
-    }
-
+    .skills-list { display: flex; flex-direction: column; gap: 3pt; }
+    .skill-row { display: flex; font-size: 9.3pt; line-height: 1.5; }
+    .skill-key { font-weight: 600; color: #374151; min-width: 85pt; flex-shrink: 0; }
     .skill-val { color: #4b5563; }
 
-    /* ─── Education ─── */
-    .edu-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 8pt;
-    }
-
-    .edu-school {
-      font-size: 9.8pt;
-      font-weight: 600;
-      color: #0f172a;
-    }
-
-    .edu-period {
-      font-size: 8.3pt;
-      color: #6b7280;
-      white-space: nowrap;
-    }
-
-    .edu-degree {
-      font-size: 9.3pt;
-      color: #4b5563;
-      margin-top: 2pt;
-    }
-
-    .edu-thesis {
-      font-size: 8.5pt;
-      color: #6b7280;
-      font-style: italic;
-      margin-top: 2pt;
-    }
+    .edu-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8pt; }
+    .edu-school { font-size: 9.8pt; font-weight: 600; color: #0f172a; }
+    .edu-period { font-size: 8.3pt; color: #6b7280; white-space: nowrap; }
+    .edu-degree { font-size: 9.3pt; color: #4b5563; margin-top: 2pt; }
+    .edu-thesis { font-size: 8.5pt; color: #6b7280; font-style: italic; margin-top: 2pt; }
   </style>
 </head>
 <body>
-
   <button class="print-btn" onclick="window.print()">Save as PDF</button>
-
   <div class="page">
 
-    <!-- ── Header ── -->
     <div class="cv-name">Yos Rio Puraga</div>
     <div class="cv-title">Fullstack Engineer</div>
     <div class="cv-contacts">
@@ -262,28 +106,23 @@
       <span>Jakarta Barat, Indonesia</span>
     </div>
 
-    <!-- ── Summary ── -->
     <div class="section">
       <div class="section-title">Professional Summary</div>
       <p class="summary-text">
-        Fullstack engineer with 5+ years of experience building e-commerce backend systems.
-        Spent five years at iCube developing custom Magento 2 modules, cross-platform middleware,
-        and WhatsApp Commerce integrations for clients across Southeast Asia.
+        Fullstack engineer with 5+ years of experience in e-commerce backend development.
+        Spent five years at iCube as a backend developer, building custom Magento 2 modules,
+        cross-platform middleware, and WhatsApp Commerce integrations for clients across Southeast Asia.
         Now expanding into fullstack engineering at PT Vita Shopindo using Laravel, Golang, Vue, and Nuxt.
       </p>
     </div>
 
-    <!-- ── Experience ── -->
     <div class="section">
       <div class="section-title">Work Experience</div>
 
-      <!-- PT Vita Shopindo -->
       <div class="exp-entry">
         <div class="exp-top">
           <div class="exp-left">
-            <div class="exp-role-company">
-              Fullstack Engineer &nbsp;·&nbsp; <span class="exp-company-name">PT Vita Shopindo</span>
-            </div>
+            <div class="exp-role-company">Fullstack Engineer &nbsp;·&nbsp; <span class="exp-company-name">PT Vita Shopindo</span></div>
             <div class="exp-location">Jakarta Barat, Indonesia · WFO</div>
           </div>
           <div class="exp-period">Jun 2026 – Present</div>
@@ -291,13 +130,10 @@
         <p class="exp-new">Newly joined — working with Laravel, Golang, Vue, and Nuxt.</p>
       </div>
 
-      <!-- iCube -->
       <div class="exp-entry">
         <div class="exp-top">
           <div class="exp-left">
-            <div class="exp-role-company">
-              Software Engineer &nbsp;·&nbsp; <span class="exp-company-name">iCube</span>
-            </div>
+            <div class="exp-role-company">Backend Developer &nbsp;·&nbsp; <span class="exp-company-name">iCube</span></div>
             <div class="exp-location">Yogyakarta, Indonesia · Remote</div>
           </div>
           <div class="exp-period">Aug 2020 – May 2026</div>
@@ -311,13 +147,10 @@
         </ul>
       </div>
 
-      <!-- JogjaTv -->
       <div class="exp-entry">
         <div class="exp-top">
           <div class="exp-left">
-            <div class="exp-role-company">
-              Web Development Intern &nbsp;·&nbsp; <span class="exp-company-name">JogjaTv</span>
-            </div>
+            <div class="exp-role-company">Web Development Intern &nbsp;·&nbsp; <span class="exp-company-name">JogjaTv</span></div>
             <div class="exp-location">Yogyakarta, Indonesia</div>
           </div>
           <div class="exp-period">2019 · 3 months</div>
@@ -328,34 +161,17 @@
       </div>
     </div>
 
-    <!-- ── Skills ── -->
     <div class="section">
       <div class="section-title">Skills</div>
       <div class="skills-list">
-        <div class="skill-row">
-          <span class="skill-key">Platforms</span>
-          <span class="skill-val">Magento 2, Shopify, n8n</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-key">Backend</span>
-          <span class="skill-val">PHP, Laravel, Golang</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-key">Frontend</span>
-          <span class="skill-val">Vue, Nuxt, ReactJS, JavaScript</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-key">APIs & Integration</span>
-          <span class="skill-val">GraphQL, REST API, WhatsApp Business API</span>
-        </div>
-        <div class="skill-row">
-          <span class="skill-key">Databases & Tools</span>
-          <span class="skill-val">MySQL, Git, Composer</span>
-        </div>
+        <div class="skill-row"><span class="skill-key">Platforms</span><span class="skill-val">Magento 2, Shopify, n8n</span></div>
+        <div class="skill-row"><span class="skill-key">Backend</span><span class="skill-val">PHP, Laravel, Golang</span></div>
+        <div class="skill-row"><span class="skill-key">Frontend</span><span class="skill-val">Vue, Nuxt, ReactJS, JavaScript</span></div>
+        <div class="skill-row"><span class="skill-key">APIs & Integration</span><span class="skill-val">GraphQL, REST API, WhatsApp Business API</span></div>
+        <div class="skill-row"><span class="skill-key">Databases & Tools</span><span class="skill-val">MySQL, Git, Composer</span></div>
       </div>
     </div>
 
-    <!-- ── Education ── -->
     <div class="section">
       <div class="section-title">Education</div>
       <div class="edu-top">

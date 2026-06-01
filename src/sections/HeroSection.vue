@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { ArrowDown, FileText } from '@lucide/vue'
+import { ref } from 'vue'
+import { ArrowDown, FileText, ChevronDown } from '@lucide/vue'
 import { personal } from '@/data/personal'
 import { useLocale } from '@/composables/useLocale'
 import { translations } from '@/data/translations'
 import IconGithub from '@/components/icons/IconGithub.vue'
 import IconLinkedin from '@/components/icons/IconLinkedin.vue'
 
-const cvUrl = `${import.meta.env.BASE_URL}cv.html`
+const base = import.meta.env.BASE_URL
+const cvOpen = ref(false)
+
+function toggleCv() { cvOpen.value = !cvOpen.value }
+function closeCv() { cvOpen.value = false }
 
 const { locale } = useLocale()
 const t = computed(() => translations[locale.value])
@@ -47,9 +52,31 @@ function scrollToProjects() {
               <a :href="personal.linkedin" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="LinkedIn profile">
                 <IconLinkedin :size="16" /> LinkedIn
               </a>
-              <a :href="cvUrl" target="_blank" rel="noopener noreferrer" class="btn-ghost" aria-label="View CV">
-                <FileText :size="16" /> CV
-              </a>
+              <!-- CV dropdown -->
+              <div class="cv-dropdown" @mouseleave="closeCv">
+                <button class="btn-ghost" aria-haspopup="true" :aria-expanded="cvOpen" @click="toggleCv">
+                  <FileText :size="16" /> CV <ChevronDown :size="13" />
+                </button>
+                <Transition
+                  enter-active-class="transition-all duration-150 ease-out"
+                  enter-from-class="opacity-0 translate-y-1"
+                  enter-to-class="opacity-100 translate-y-0"
+                  leave-active-class="transition-all duration-100"
+                  leave-from-class="opacity-100"
+                  leave-to-class="opacity-0"
+                >
+                  <div v-if="cvOpen" class="cv-menu" role="menu">
+                    <a :href="`${base}cv.html`" target="_blank" rel="noopener noreferrer" class="cv-option" role="menuitem" @click="closeCv">
+                      <span class="cv-option-title">ATS-Friendly</span>
+                      <span class="cv-option-sub">Clean text, parser-safe</span>
+                    </a>
+                    <a :href="`${base}cv-creative.html`" target="_blank" rel="noopener noreferrer" class="cv-option" role="menuitem" @click="closeCv">
+                      <span class="cv-option-title">Creative</span>
+                      <span class="cv-option-sub">Sidebar design with photo</span>
+                    </a>
+                  </div>
+                </Transition>
+              </div>
             </div>
           </div>
         </div>
@@ -247,6 +274,36 @@ function scrollToProjects() {
 .status-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 0.8125rem; }
 .status-row dt { color: var(--text-3); font-weight: 400; }
 .status-row dd { color: var(--text-1); font-weight: 500; text-align: right; }
+
+/* CV dropdown */
+.cv-dropdown { position: relative; }
+
+.cv-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 0.625rem;
+  padding: 0.375rem;
+  min-width: 180px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  z-index: 50;
+}
+
+.cv-option {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  transition: background-color 0.12s ease;
+}
+
+.cv-option:hover { background-color: var(--bg-raised); }
+.cv-option-title { font-size: 0.8125rem; font-weight: 600; color: var(--text-1); }
+.cv-option-sub { font-size: 0.6875rem; color: var(--text-3); }
 
 .scroll-hint { display: flex; justify-content: center; color: var(--text-3); animation: bounce 2s ease infinite; }
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
