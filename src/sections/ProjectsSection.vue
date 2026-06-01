@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ExternalLink } from '@lucide/vue'
-import { featuredProjects, personalProjects } from '@/data/projects'
+import { iCubeProjects } from '@/data/projects'
 import { useReveal } from '@/composables/useReveal'
-import IconGithub from '@/components/icons/IconGithub.vue'
 
 const { el, visible } = useReveal()
+
+const externalProjects = iCubeProjects.filter((p) => p.type === 'external')
+const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
 </script>
 
 <template>
@@ -12,63 +13,61 @@ const { el, visible } = useReveal()
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
         <p class="section-label">04 — Projects</p>
-        <h2 id="projects-heading" class="projects-heading">Selected work.</h2>
+        <h2 id="projects-heading" class="projects-heading">Work at iCube.</h2>
         <p class="projects-sub">
-          A mix of professional client work (built at iCube) and personal projects.
-          Client projects are described at a high level out of respect for confidentiality.
+          Projects delivered as part of the engineering team at iCube — covering client e-commerce
+          builds and internal tooling.
         </p>
 
-        <!-- Client work -->
-        <div class="sub-label" aria-label="Section: Professional work">
-          <span>Professional</span>
+        <!-- External projects -->
+        <div class="sub-label">
+          <span>Client Projects</span>
         </div>
 
-        <div class="projects-grid" aria-label="Client projects">
+        <div class="projects-grid">
           <article
-            v-for="project in featuredProjects"
+            v-for="project in externalProjects"
             :key="project.id"
             class="project-card"
           >
-            <div class="project-top">
-              <div>
-                <div class="project-badge">{{ project.highlight }}</div>
-                <h3 class="project-name">{{ project.name }}</h3>
-              </div>
-              <ExternalLink :size="14" class="project-ext-icon" aria-hidden="true" />
+            <div class="project-header">
+              <h3 class="project-name">{{ project.name }}</h3>
+              <span class="project-type project-type--external">External</span>
             </div>
-            <p class="project-desc">{{ project.description }}</p>
-            <div class="project-tech" aria-label="Technologies">
+            <ul class="project-highlights">
+              <li v-for="(item, i) in project.highlights" :key="i">
+                <span class="highlight-dash" aria-hidden="true">—</span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+            <div class="project-tech">
               <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
             </div>
           </article>
         </div>
 
-        <!-- Personal projects -->
-        <div class="sub-label sub-label--personal" aria-label="Section: Personal projects">
-          <span>Personal</span>
+        <!-- Internal projects -->
+        <div class="sub-label sub-label--second">
+          <span>Internal Tools</span>
         </div>
 
-        <div class="projects-grid personal-grid" aria-label="Personal projects">
+        <div class="projects-grid">
           <article
-            v-for="project in personalProjects"
+            v-for="project in internalProjects"
             :key="project.id"
             class="project-card"
           >
-            <div class="project-top">
+            <div class="project-header">
               <h3 class="project-name">{{ project.name }}</h3>
-              <a
-                v-if="project.github"
-                :href="project.github"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="project-gh-link"
-                :aria-label="`View ${project.name} on GitHub`"
-              >
-                <IconGithub :size="16" />
-              </a>
+              <span class="project-type project-type--internal">Internal</span>
             </div>
-            <p class="project-desc">{{ project.description }}</p>
-            <div class="project-tech" aria-label="Technologies">
+            <ul class="project-highlights">
+              <li v-for="(item, i) in project.highlights" :key="i">
+                <span class="highlight-dash" aria-hidden="true">—</span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+            <div class="project-tech">
               <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
             </div>
           </article>
@@ -119,8 +118,8 @@ const { el, visible } = useReveal()
   white-space: nowrap;
 }
 
-.sub-label--personal {
-  margin-top: 2.5rem;
+.sub-label--second {
+  margin-top: 2rem;
 }
 
 /* Grid */
@@ -128,6 +127,7 @@ const { el, visible } = useReveal()
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -142,16 +142,6 @@ const { el, visible } = useReveal()
   }
 }
 
-.personal-grid {
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  .personal-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
 /* Card */
 .project-card {
   display: flex;
@@ -161,33 +151,19 @@ const { el, visible } = useReveal()
   border: 1px solid var(--border);
   border-radius: 0.75rem;
   padding: 1.25rem;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .project-card:hover {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-light);
-  transform: translateY(-2px);
 }
 
-.project-top {
+.project-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   gap: 0.5rem;
-}
-
-.project-badge {
-  display: inline-block;
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  background-color: var(--accent-light);
-  border-radius: 0.25rem;
-  padding: 0.125rem 0.45rem;
-  margin-bottom: 0.35rem;
 }
 
 .project-name {
@@ -197,27 +173,52 @@ const { el, visible } = useReveal()
   line-height: 1.3;
 }
 
-.project-ext-icon {
-  color: var(--text-3);
+.project-type {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+  white-space: nowrap;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
-.project-gh-link {
-  color: var(--text-3);
-  transition: color 0.15s ease;
-  flex-shrink: 0;
-}
-
-.project-gh-link:hover {
+.project-type--external {
+  background-color: var(--accent-light);
   color: var(--accent);
 }
 
-.project-desc {
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  color: var(--text-2);
+.project-type--internal {
+  background-color: var(--bg-raised);
+  color: var(--text-3);
+  border: 1px solid var(--border);
+}
+
+/* Highlights */
+.project-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   flex: 1;
+}
+
+.project-highlights li {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.highlight-dash {
+  color: var(--accent);
+  font-weight: 600;
+  flex-shrink: 0;
 }
 
 .project-tech {
@@ -225,5 +226,7 @@ const { el, visible } = useReveal()
   flex-wrap: wrap;
   gap: 0.35rem;
   margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-faint);
 }
 </style>

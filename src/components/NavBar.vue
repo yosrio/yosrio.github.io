@@ -14,6 +14,7 @@ const navLinks = [
   { label: 'Contact', href: '#contact' },
 ]
 
+
 function onScroll() {
   scrolled.value = window.scrollY > 20
 }

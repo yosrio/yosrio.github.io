@@ -5,27 +5,23 @@ export interface SkillGroup {
 
 export const skillGroups: SkillGroup[] = [
   {
-    label: 'Languages',
-    skills: ['PHP', 'JavaScript', 'Java', 'Python', 'SQL'],
+    label: 'Platforms',
+    skills: ['Magento 2', 'Shopify', 'n8n'],
   },
   {
     label: 'Frameworks',
-    skills: ['Magento 2', 'Laravel', 'ReactJS'],
+    skills: ['Laravel', 'ReactJS'],
   },
   {
-    label: 'Platforms',
-    skills: ['Shopify', 'n8n'],
+    label: 'Languages',
+    skills: ['PHP', 'JavaScript', 'SQL'],
   },
   {
     label: 'APIs & Integration',
-    skills: ['GraphQL', 'REST API', 'WhatsApp API', 'Webhook'],
+    skills: ['GraphQL', 'REST API', 'WhatsApp Business API'],
   },
   {
-    label: 'Databases & Tools',
-    skills: ['MySQL', 'Git', 'Docker', 'Composer'],
-  },
-  {
-    label: 'Currently Learning',
-    skills: ['Java', 'Spring Boot'],
+    label: 'Tools & Databases',
+    skills: ['MySQL', 'Git', 'Composer'],
   },
 ]

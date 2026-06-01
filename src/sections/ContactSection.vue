@@ -37,7 +37,7 @@ const links: { label: string; value: string; href: string; icon: Component; exte
   <section id="contact" class="section" aria-labelledby="contact-heading">
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
-        <p class="section-label">06 — Contact</p>
+        <p class="section-label">05 — Contact</p>
 
         <div class="contact-inner">
           <div class="contact-text">
