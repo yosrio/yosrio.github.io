@@ -9,7 +9,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    @page { size: A4; margin: 0; }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
 
     body {
       font-family: 'Inter', Arial, sans-serif;
@@ -27,11 +31,12 @@
     }
 
     @media print {
-      .controls { display: none; }
-      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .controls { display: none !important; }
+      .cv-wrapper { width: 210mm; height: 297mm; min-height: 0; }
+      .sidebar { min-height: 297mm; }
     }
 
-    /* Controls */
+    /* ── Controls ── */
     .controls {
       position: fixed; top: 16px; right: 16px;
       display: flex; align-items: center; gap: 8px; z-index: 100;
@@ -48,7 +53,6 @@
       cursor: pointer; color: #94a3b8; font-family: inherit;
       letter-spacing: 0.05em; transition: all 0.15s;
     }
-
     .lang-btn.active { background: #fff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
     .dl-btn {
@@ -57,25 +61,28 @@
       font-weight: 600; cursor: pointer; font-family: inherit;
     }
     .dl-btn:hover { background: #1e293b; }
-    .dl-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    /* Layout */
-    .cv-wrapper { display: flex; width: 210mm; min-height: 297mm; background: #fff; }
+    /* ── Layout ── */
+    .cv-wrapper {
+      display: flex;
+      width: 210mm;
+      min-height: 297mm;
+      background: #fff;
+    }
 
-    /* Sidebar */
+    /* ── Sidebar ── */
     .sidebar {
-      width: 36%; background: #0f172a;
-      padding: 20mm 13mm 16mm; display: flex;
-      flex-direction: column; gap: 0; flex-shrink: 0;
+      width: 36%;
+      background: #0f172a;
+      padding: 20mm 13mm 16mm;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      min-height: 297mm;
     }
 
     .photo-wrap { display: flex; justify-content: center; margin-bottom: 12pt; }
-
-    .photo {
-      width: 72pt; height: 72pt; border-radius: 50%;
-      object-fit: cover; object-position: center 25%;
-      border: 2.5pt solid #0ea5e9; display: block;
-    }
+    .photo { width: 72pt; height: 72pt; border-radius: 50%; object-fit: cover; object-position: center 25%; border: 2.5pt solid #0ea5e9; display: block; }
 
     .sidebar-name { font-size: 14pt; font-weight: 700; color: #f1f5f9; text-align: center; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 3pt; }
     .sidebar-title { font-size: 8pt; font-weight: 500; color: #0ea5e9; text-align: center; letter-spacing: 0.04em; margin-bottom: 14pt; }
@@ -84,11 +91,10 @@
 
     .s-section { margin-bottom: 12pt; }
     .s-section:last-child { margin-bottom: 0; }
-
     .s-title { font-size: 6.5pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0ea5e9; margin-bottom: 7pt; }
 
     .contact-list { display: flex; flex-direction: column; gap: 4pt; }
-    .contact-item { display: flex; flex-direction: column; gap: 0; }
+    .contact-item { display: flex; flex-direction: column; }
     .contact-label { font-size: 6pt; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #475569; }
     .contact-value { font-size: 8pt; color: #cbd5e1; word-break: break-all; }
     .contact-value a { color: #cbd5e1; text-decoration: none; }
@@ -103,8 +109,8 @@
     .edu-sub { font-size: 7.5pt; color: #94a3b8; margin-top: 2pt; }
     .edu-thesis { font-size: 7pt; color: #64748b; font-style: italic; margin-top: 3pt; line-height: 1.4; }
 
-    /* Main */
-    .main { flex: 1; background: #ffffff; padding: 16mm 14mm 14mm 16mm; display: flex; flex-direction: column; }
+    /* ── Main ── */
+    .main { flex: 1; background: #fff; padding: 16mm 14mm 14mm 16mm; }
 
     .main-header { margin-bottom: 12pt; }
     .main-name { font-size: 20pt; font-weight: 700; letter-spacing: -0.03em; color: #0f172a; line-height: 1.1; }
@@ -138,17 +144,14 @@
       <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn" id="btn-id" onclick="setLang('id')">ID</button>
     </div>
-    <button class="dl-btn" id="dlBtn" onclick="downloadPDF()">Download PDF</button>
+    <button class="dl-btn" onclick="savePDF()">Save as PDF</button>
   </div>
 
   <div class="cv-wrapper">
-
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="photo-wrap">
         <img src="photo.jpeg" alt="Yos Rio Puraga" class="photo" />
       </div>
-
       <div class="sidebar-name">Yos Rio Puraga</div>
       <div class="sidebar-title" data-key="cv-title">Fullstack Engineer</div>
 
@@ -158,7 +161,7 @@
         <div class="s-title" data-key="s-contact">Contact</div>
         <div class="contact-list">
           <div class="contact-item">
-            <span class="contact-label" data-key="c-email">Email</span>
+            <span class="contact-label">Email</span>
             <span class="contact-value"><a href="mailto:yosrio.id@gmail.com">yosrio.id@gmail.com</a></span>
           </div>
           <div class="contact-item">
@@ -175,7 +178,7 @@
           </div>
           <div class="contact-item">
             <span class="contact-label" data-key="c-location">Location</span>
-            <span class="contact-value" data-key="location">Jakarta Barat, Indonesia</span>
+            <span class="contact-value">Jakarta Barat, Indonesia</span>
           </div>
         </div>
       </div>
@@ -186,44 +189,23 @@
         <div class="s-title" data-key="s-skills">Skills</div>
         <div class="skill-group">
           <div class="skill-group-name" data-key="sk-platforms">Platforms</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Magento 2</span>
-            <span class="skill-tag">Shopify</span>
-            <span class="skill-tag">n8n</span>
-          </div>
+          <div class="skill-tags"><span class="skill-tag">Magento 2</span><span class="skill-tag">Shopify</span><span class="skill-tag">n8n</span></div>
         </div>
         <div class="skill-group">
-          <div class="skill-group-name" data-key="sk-backend">Backend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">PHP</span>
-            <span class="skill-tag">Laravel</span>
-            <span class="skill-tag">Golang</span>
-          </div>
+          <div class="skill-group-name">Backend</div>
+          <div class="skill-tags"><span class="skill-tag">PHP</span><span class="skill-tag">Laravel</span><span class="skill-tag">Golang</span></div>
         </div>
         <div class="skill-group">
-          <div class="skill-group-name" data-key="sk-frontend">Frontend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Vue</span>
-            <span class="skill-tag">Nuxt</span>
-            <span class="skill-tag">ReactJS</span>
-            <span class="skill-tag">JavaScript</span>
-          </div>
+          <div class="skill-group-name">Frontend</div>
+          <div class="skill-tags"><span class="skill-tag">Vue</span><span class="skill-tag">Nuxt</span><span class="skill-tag">ReactJS</span><span class="skill-tag">JavaScript</span></div>
         </div>
         <div class="skill-group">
           <div class="skill-group-name" data-key="sk-apis">APIs & Integration</div>
-          <div class="skill-tags">
-            <span class="skill-tag">GraphQL</span>
-            <span class="skill-tag">REST API</span>
-            <span class="skill-tag">WhatsApp API</span>
-          </div>
+          <div class="skill-tags"><span class="skill-tag">GraphQL</span><span class="skill-tag">REST API</span><span class="skill-tag">WhatsApp API</span></div>
         </div>
         <div class="skill-group">
-          <div class="skill-group-name" data-key="sk-tools">Tools</div>
-          <div class="skill-tags">
-            <span class="skill-tag">MySQL</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Composer</span>
-          </div>
+          <div class="skill-group-name">Tools</div>
+          <div class="skill-tags"><span class="skill-tag">MySQL</span><span class="skill-tag">Git</span><span class="skill-tag">Composer</span></div>
         </div>
       </div>
 
@@ -237,7 +219,6 @@
       </div>
     </aside>
 
-    <!-- MAIN -->
     <main class="main">
       <div class="main-header">
         <div class="main-name">Yos Rio Puraga</div>
@@ -247,9 +228,7 @@
 
       <div class="m-section">
         <div class="m-title" data-key="s-summary">Professional Summary</div>
-        <p class="summary-text" data-key="summary">
-          Fullstack engineer with 5+ years of experience in e-commerce backend development. Spent five years at iCube as a backend developer, building custom Magento 2 modules, cross-platform middleware, and WhatsApp Commerce integrations for brands across Southeast Asia. Now expanding into fullstack engineering at PT Vita Shopindo with Laravel, Golang, Vue, and Nuxt.
-        </p>
+        <p class="summary-text" data-key="summary">Fullstack engineer with 5+ years of experience in e-commerce backend development. Spent five years at iCube as a backend developer, building custom Magento 2 modules, cross-platform middleware, and WhatsApp Commerce integrations for brands across Southeast Asia. Now expanding into fullstack engineering at PT Vita Shopindo with Laravel, Golang, Vue, and Nuxt.</p>
       </div>
 
       <div class="m-section">
@@ -275,7 +254,7 @@
             </div>
             <div class="exp-period">Aug 2020 – May 2026</div>
           </div>
-          <div class="exp-location" data-key="icube-location">Yogyakarta, Indonesia · Remote</div>
+          <div class="exp-location">Yogyakarta, Indonesia · Remote</div>
           <ul class="exp-list">
             <li><span data-key="icube-b1">Developed custom Magento 2 modules for 10+ client projects — push notifications, GraphQL APIs, order tracking, and affiliate systems.</span></li>
             <li><span data-key="icube-b2">Architected an internal Channel Service using n8n to synchronise products, stock, and orders across Magento, Shopify, and third-party platforms.</span></li>
@@ -293,7 +272,7 @@
             </div>
             <div class="exp-period" data-key="jogja-period">2019 · 3 months</div>
           </div>
-          <div class="exp-location" data-key="jogja-location">Yogyakarta, Indonesia</div>
+          <div class="exp-location">Yogyakarta, Indonesia</div>
           <ul class="exp-list">
             <li><span data-key="jogja-b1">Built an internal web-based correspondence system from design to deployment.</span></li>
           </ul>
@@ -302,73 +281,44 @@
     </main>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     const t = {
       en: {
         'cv-title': 'Fullstack Engineer',
-        'location': 'Jakarta Barat, Indonesia',
-        's-contact': 'Contact',
-        'c-email': 'Email',
-        'c-phone': 'Phone',
-        'c-location': 'Location',
-        's-skills': 'Skills',
-        'sk-platforms': 'Platforms',
-        'sk-backend': 'Backend',
-        'sk-frontend': 'Frontend',
-        'sk-apis': 'APIs & Integration',
-        'sk-tools': 'Tools',
-        's-education': 'Education',
-        'edu-sub': 'Informatika · 2016 – 2021',
+        's-contact': 'Contact', 'c-phone': 'Phone', 'c-location': 'Location',
+        's-skills': 'Skills', 'sk-platforms': 'Platforms', 'sk-apis': 'APIs & Integration',
+        's-education': 'Education', 'edu-sub': 'Informatika · 2016 – 2021',
         's-summary': 'Professional Summary',
         'summary': "Fullstack engineer with 5+ years of experience in e-commerce backend development. Spent five years at iCube as a backend developer, building custom Magento 2 modules, cross-platform middleware, and WhatsApp Commerce integrations for brands across Southeast Asia. Now expanding into fullstack engineering at PT Vita Shopindo with Laravel, Golang, Vue, and Nuxt.",
         's-experience': 'Work Experience',
-        'vita-role': 'Fullstack Engineer',
-        'vita-location': 'Jakarta Barat, Indonesia · WFO',
+        'vita-role': 'Fullstack Engineer', 'vita-location': 'Jakarta Barat, Indonesia · WFO',
         'vita-note': 'Newly joined — working with Laravel, Golang, Vue, and Nuxt.',
         'icube-role': 'Backend Developer',
-        'icube-location': 'Yogyakarta, Indonesia · Remote',
         'icube-b1': 'Developed custom Magento 2 modules for 10+ client projects — push notifications, GraphQL APIs, order tracking, and affiliate systems.',
         'icube-b2': 'Architected an internal Channel Service using n8n to synchronise products, stock, and orders across Magento, Shopify, and third-party platforms.',
         'icube-b3': "Built WhatsApp Commerce integrations for L'Oréal and Nivea, connecting Magento to WhatsApp Business API with custom checkout flows.",
         'icube-b4': 'Developed a custom Shopify shipping app (Laravel + ReactJS) embedded in Shopify Admin.',
         'icube-b5': 'Managed data migrations, PDF report generation, and ERP integrations for multiple clients.',
-        'jogja-role': 'Web Development Intern',
-        'jogja-location': 'Yogyakarta, Indonesia',
-        'jogja-period': '2019 · 3 months',
+        'jogja-role': 'Web Development Intern', 'jogja-period': '2019 · 3 months',
         'jogja-b1': 'Built an internal web-based correspondence system from design to deployment.',
       },
       id: {
         'cv-title': 'Fullstack Engineer',
-        'location': 'Jakarta Barat, Indonesia',
-        's-contact': 'Kontak',
-        'c-email': 'Email',
-        'c-phone': 'Telepon',
-        'c-location': 'Lokasi',
-        's-skills': 'Keahlian',
-        'sk-platforms': 'Platform',
-        'sk-backend': 'Backend',
-        'sk-frontend': 'Frontend',
-        'sk-apis': 'API & Integrasi',
-        'sk-tools': 'Tools',
-        's-education': 'Pendidikan',
-        'edu-sub': 'Informatika · 2016 – 2021',
+        's-contact': 'Kontak', 'c-phone': 'Telepon', 'c-location': 'Lokasi',
+        's-skills': 'Keahlian', 'sk-platforms': 'Platform', 'sk-apis': 'API & Integrasi',
+        's-education': 'Pendidikan', 'edu-sub': 'Informatika · 2016 – 2021',
         's-summary': 'Ringkasan Profesional',
         'summary': 'Fullstack engineer dengan 5+ tahun pengalaman di pengembangan backend e-commerce. Lima tahun bekerja di iCube sebagai backend developer, membangun modul Magento 2 kustom, middleware lintas platform, dan integrasi WhatsApp Commerce untuk klien di Asia Tenggara. Kini berkembang ke fullstack engineering di PT Vita Shopindo menggunakan Laravel, Golang, Vue, dan Nuxt.',
         's-experience': 'Pengalaman Kerja',
-        'vita-role': 'Fullstack Engineer',
-        'vita-location': 'Jakarta Barat, Indonesia · WFO',
+        'vita-role': 'Fullstack Engineer', 'vita-location': 'Jakarta Barat, Indonesia · WFO',
         'vita-note': 'Baru bergabung — bekerja dengan Laravel, Golang, Vue, dan Nuxt.',
         'icube-role': 'Backend Developer',
-        'icube-location': 'Yogyakarta, Indonesia · Remote',
         'icube-b1': 'Mengembangkan modul Magento 2 kustom untuk 10+ proyek klien termasuk push notification, GraphQL API, pelacakan pesanan, dan sistem afiliasi.',
         'icube-b2': 'Merancang Channel Service internal menggunakan n8n untuk menyinkronkan produk, stok, dan pesanan antara Magento, Shopify, dan platform pihak ketiga.',
         'icube-b3': "Membangun integrasi WhatsApp Commerce untuk L'Oréal dan Nivea, menghubungkan Magento ke WhatsApp Business API dengan alur checkout kustom.",
         'icube-b4': 'Mengembangkan aplikasi pengiriman Shopify kustom (Laravel + ReactJS) yang tertanam di Shopify Admin.',
         'icube-b5': 'Mengelola migrasi data, pembuatan laporan PDF, dan integrasi ERP untuk berbagai proyek klien.',
-        'jogja-role': 'Magang Pengembang Web',
-        'jogja-location': 'Yogyakarta, Indonesia',
-        'jogja-period': '2019 · 3 bulan',
+        'jogja-role': 'Magang Pengembang Web', 'jogja-period': '2019 · 3 bulan',
         'jogja-b1': 'Membangun sistem surat menyurat berbasis web internal dari desain hingga deployment.',
       }
     }
@@ -378,31 +328,19 @@
     function setLang(l) {
       lang = l
       document.querySelectorAll('[data-key]').forEach(el => {
-        const key = el.getAttribute('data-key')
-        if (t[l][key] !== undefined) el.textContent = t[l][key]
+        const v = t[l][el.dataset.key]
+        if (v !== undefined) el.textContent = v
       })
       document.getElementById('btn-en').classList.toggle('active', l === 'en')
       document.getElementById('btn-id').classList.toggle('active', l === 'id')
       document.documentElement.lang = l
     }
 
-    async function downloadPDF() {
-      const btn = document.getElementById('dlBtn')
-      btn.textContent = 'Generating…'
-      btn.disabled = true
-      const el = document.querySelector('.cv-wrapper')
-      el.style.minHeight = 'auto'
-      const filename = lang === 'id' ? 'Yos-Rio-Puraga-CV-Creative-ID.pdf' : 'Yos-Rio-Puraga-CV-Creative.pdf'
-      await html2pdf().set({
-        margin: 0,
-        filename,
-        image: { type: 'jpeg', quality: 0.99 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }).from(el).save()
-      el.style.minHeight = ''
-      btn.textContent = 'Download PDF'
-      btn.disabled = false
+    function savePDF() {
+      const prev = document.title
+      document.title = lang === 'id' ? 'Yos-Rio-Puraga-CV-Creative-ID' : 'Yos-Rio-Puraga-CV-Creative'
+      window.print()
+      setTimeout(() => { document.title = prev }, 1000)
     }
   </script>
 </body>
