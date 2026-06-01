@@ -217,6 +217,7 @@
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     const t = {
       en: {
@@ -282,11 +283,33 @@
       document.documentElement.lang = l
     }
 
-    function savePDF() {
-      const prev = document.title
-      document.title = lang === 'id' ? 'Yos-Rio-Puraga-CV-ID' : 'Yos-Rio-Puraga-CV'
-      window.print()
-      setTimeout(() => { document.title = prev }, 1000)
+    async function savePDF() {
+      const btn = document.querySelector('.dl-btn')
+      btn.textContent = 'Generating…'
+      btn.disabled = true
+
+      const el = document.querySelector('.page')
+      // Remove screen-only styles so html2pdf doesn't double-count them
+      el.style.minHeight = 'auto'
+      el.style.padding = '0'
+      el.style.margin = '0'
+      el.style.boxShadow = 'none'
+
+      await html2pdf().set({
+        margin: [16, 18, 16, 18],
+        filename: lang === 'id' ? 'Yos-Rio-Puraga-CV-ID.pdf' : 'Yos-Rio-Puraga-CV.pdf',
+        image: { type: 'jpeg', quality: 0.99 },
+        html2canvas: { scale: 2, letterRendering: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(el).save()
+
+      // Restore
+      el.style.minHeight = ''
+      el.style.padding = ''
+      el.style.margin = ''
+      el.style.boxShadow = ''
+      btn.textContent = 'Download PDF'
+      btn.disabled = false
     }
   </script>
 </body>
