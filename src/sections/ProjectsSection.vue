@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import { iCubeProjects } from '@/data/projects'
+import { ref } from 'vue'
+import { ChevronDown, ChevronUp } from '@lucide/vue'
+import { projectGroups } from '@/data/projects'
 import { useReveal } from '@/composables/useReveal'
 
 const { el, visible } = useReveal()
 
-const externalProjects = iCubeProjects.filter((p) => p.type === 'external')
-const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
+const INITIAL_SHOW = 4
+
+const expanded = ref<Record<string, boolean>>({})
+
+function toggle(company: string) {
+  expanded.value[company] = !expanded.value[company]
+}
+
+function isExpanded(company: string) {
+  return !!expanded.value[company]
+}
 </script>
 
 <template>
@@ -13,64 +24,81 @@ const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
     <div class="section-inner">
       <div ref="el" :class="['reveal', visible && 'visible']">
         <p class="section-label">04 — Projects</p>
-        <h2 id="projects-heading" class="projects-heading">Work at iCube.</h2>
+        <h2 id="projects-heading" class="projects-heading">Work by company.</h2>
         <p class="projects-sub">
-          Projects delivered as part of the engineering team at iCube — covering client e-commerce
-          builds and internal tooling.
+          Projects I've worked on, grouped by employer.
         </p>
 
-        <!-- External projects -->
-        <div class="sub-label">
-          <span>Client Projects</span>
-        </div>
-
-        <div class="projects-grid">
-          <article
-            v-for="project in externalProjects"
-            :key="project.id"
-            class="project-card"
+        <div class="company-list">
+          <div
+            v-for="group in projectGroups"
+            :key="group.company"
+            class="company-block"
           >
-            <div class="project-header">
-              <h3 class="project-name">{{ project.name }}</h3>
-              <span class="project-type project-type--external">External</span>
+            <!-- Company header -->
+            <div class="company-header">
+              <div class="company-meta">
+                <h3 class="company-name">{{ group.company }}</h3>
+                <span class="company-period">{{ group.period }}</span>
+              </div>
+              <span v-if="group.projects.length > 0" class="project-count">
+                {{ group.projects.length }} project{{ group.projects.length > 1 ? 's' : '' }}
+              </span>
             </div>
-            <ul class="project-highlights">
-              <li v-for="(item, i) in project.highlights" :key="i">
-                <span class="highlight-dash" aria-hidden="true">—</span>
-                <span>{{ item }}</span>
-              </li>
-            </ul>
-            <div class="project-tech">
-              <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
-            </div>
-          </article>
-        </div>
 
-        <!-- Internal projects -->
-        <div class="sub-label sub-label--second">
-          <span>Internal Tools</span>
-        </div>
+            <!-- Empty state -->
+            <div v-if="group.projects.length === 0" class="empty-state">
+              <span>Projects coming soon.</span>
+            </div>
 
-        <div class="projects-grid">
-          <article
-            v-for="project in internalProjects"
-            :key="project.id"
-            class="project-card"
-          >
-            <div class="project-header">
-              <h3 class="project-name">{{ project.name }}</h3>
-              <span class="project-type project-type--internal">Internal</span>
-            </div>
-            <ul class="project-highlights">
-              <li v-for="(item, i) in project.highlights" :key="i">
-                <span class="highlight-dash" aria-hidden="true">—</span>
-                <span>{{ item }}</span>
-              </li>
-            </ul>
-            <div class="project-tech">
-              <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
-            </div>
-          </article>
+            <!-- Projects grid -->
+            <template v-else>
+              <div class="projects-grid">
+                <article
+                  v-for="(project, idx) in group.projects"
+                  v-show="idx < INITIAL_SHOW || isExpanded(group.company)"
+                  :key="project.id"
+                  class="project-card"
+                >
+                  <div class="project-header">
+                    <h4 class="project-name">{{ project.name }}</h4>
+                    <span
+                      class="project-type"
+                      :class="project.type === 'external' ? 'project-type--external' : 'project-type--internal'"
+                    >
+                      {{ project.type === 'external' ? 'Client' : 'Internal' }}
+                    </span>
+                  </div>
+                  <ul class="project-highlights">
+                    <li v-for="(item, i) in project.highlights" :key="i">
+                      <span class="highlight-dash" aria-hidden="true">—</span>
+                      <span>{{ item }}</span>
+                    </li>
+                  </ul>
+                  <div class="project-tech">
+                    <span v-for="t in project.tech" :key="t" class="tag">{{ t }}</span>
+                  </div>
+                </article>
+              </div>
+
+              <!-- Show more / less button -->
+              <button
+                v-if="group.projects.length > INITIAL_SHOW"
+                class="show-more-btn"
+                :aria-expanded="isExpanded(group.company)"
+                @click="toggle(group.company)"
+              >
+                <template v-if="!isExpanded(group.company)">
+                  <ChevronDown :size="15" aria-hidden="true" />
+                  Show {{ group.projects.length - INITIAL_SHOW }} more
+                </template>
+                <template v-else>
+                  <ChevronUp :size="15" aria-hidden="true" />
+                  Show less
+                </template>
+              </button>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -95,31 +123,66 @@ const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
   margin-bottom: 2rem;
 }
 
-.sub-label {
+/* Company list */
+.company-list {
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 2.5rem;
 }
 
-.sub-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background-color: var(--border);
+.company-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.sub-label span {
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+/* Company header */
+.company-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.625rem;
+}
+
+.company-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+.company-period {
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-3);
+}
+
+.project-count {
+  font-size: 0.75rem;
+  font-weight: 500;
   color: var(--text-3);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.sub-label--second {
-  margin-top: 2rem;
+/* Empty state */
+.empty-state {
+  background-color: var(--bg-raised);
+  border: 1px dashed var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-3);
 }
 
 /* Grid */
@@ -127,7 +190,6 @@ const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  margin-bottom: 0.5rem;
 }
 
 @media (min-width: 640px) {
@@ -138,7 +200,7 @@ const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
 
 @media (min-width: 1024px) {
   .projects-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -225,8 +287,29 @@ const internalProjects = iCubeProjects.filter((p) => p.type === 'internal')
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-top: auto;
   padding-top: 0.5rem;
   border-top: 1px solid var(--border-faint);
+}
+
+/* Show more button */
+.show-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+  align-self: flex-start;
+}
+
+.show-more-btn:hover {
+  border-color: var(--accent);
+  background-color: var(--accent-light);
 }
 </style>

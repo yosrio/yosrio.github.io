@@ -19,7 +19,7 @@ const { el, visible } = useReveal()
             class="timeline-item"
           >
             <!-- Timeline dot -->
-            <div class="timeline-dot" :class="{ 'timeline-dot--active': index === 0 }" aria-hidden="true" />
+            <div class="timeline-dot" :class="{ 'timeline-dot--active': job.current }" aria-hidden="true" />
 
             <div class="timeline-body">
               <!-- Header -->
@@ -35,21 +35,26 @@ const { el, visible } = useReveal()
                 <time class="job-period">{{ job.period }}</time>
               </header>
 
-              <!-- Description -->
-              <p class="job-desc">{{ job.description }}</p>
+              <!-- New / empty role -->
+              <template v-if="job.highlights.length === 0">
+                <p class="job-new">Just getting started — details coming soon.</p>
+              </template>
 
-              <!-- Highlights -->
-              <ul class="highlights" aria-label="Key achievements">
-                <li v-for="(item, i) in job.highlights" :key="i" class="highlight-item">
-                  <span class="highlight-bullet" aria-hidden="true">—</span>
-                  <span>{{ item }}</span>
-                </li>
-              </ul>
+              <!-- Populated role -->
+              <template v-else>
+                <p v-if="job.description" class="job-desc">{{ job.description }}</p>
 
-              <!-- Tech tags -->
-              <div class="job-tech" aria-label="Technologies used">
-                <span v-for="t in job.tech" :key="t" class="tag">{{ t }}</span>
-              </div>
+                <ul class="highlights" aria-label="Key achievements">
+                  <li v-for="(item, i) in job.highlights" :key="i" class="highlight-item">
+                    <span class="highlight-bullet" aria-hidden="true">—</span>
+                    <span>{{ item }}</span>
+                  </li>
+                </ul>
+
+                <div v-if="job.tech.length > 0" class="job-tech" aria-label="Technologies used">
+                  <span v-for="t in job.tech" :key="t" class="tag">{{ t }}</span>
+                </div>
+              </template>
             </div>
           </article>
         </div>
@@ -168,6 +173,13 @@ const { el, visible } = useReveal()
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 2px;
+}
+
+/* New role placeholder */
+.job-new {
+  font-size: 0.875rem;
+  font-style: italic;
+  color: var(--text-3);
 }
 
 /* Description */
